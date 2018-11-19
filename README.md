@@ -2,8 +2,10 @@
 
 Add-project-description-here | Voyage-7 | https://chingu.io/
 
-Team member:
-Frank Fausito
-Benjamin Brooke
-Eric Miller
-Leen Kim
+__Team member:__
+
+- Frank Faustino
+- Benjamin Brooke
+- Eric Miller
+- Leen Kim
+
