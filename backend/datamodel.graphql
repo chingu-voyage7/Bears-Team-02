@@ -1,0 +1,67 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  image: String
+  password: String
+  oauthId: String
+  posts: [Post]
+  reviews: [Review]
+  createdAt: DateTime!
+}
+
+type Post {
+  id: ID! @unique
+  langauge: Language!
+  library: Library!
+  contentType: ContentType!
+  difficulty: Difficulty!
+  title: String!
+  description: String!
+  author: String
+  href: String!
+  image: String
+  price: Int
+  reviews: [Review]
+  user: User!
+  createdAt: DateTime!
+}
+
+type Review {
+  id: ID! @unique
+  rating: Int!
+  text: String
+  user: User!
+  post: Post!
+  createdAt: DateTime!
+}
+
+# various programming languages
+enum Language {
+  JAVASCRIPT
+  PYTHON
+  CPLUSPLUS
+}
+
+enum Library {
+  NATIVE # built into the language
+  REACT
+  SCRAPY
+  ON_POSIX
+}
+
+# general categories of content
+enum ContentType {
+  DOCUMENTATION
+  TUTORIAL
+  BOOK
+  ARTICLE
+}
+
+# difficulty level of content
+enum Difficulty {
+  EASY
+  INTERMEDIATE
+  HARD
+  EXPERT
+}
