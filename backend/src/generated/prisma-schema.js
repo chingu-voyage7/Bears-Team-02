@@ -40,8 +40,8 @@ enum Language {
 enum Library {
   NATIVE
   REACT
-  SCRAPY
-  ON_POSIX
+  GRAPHQL
+  NEXT
 }
 
 scalar Long
@@ -87,7 +87,7 @@ type PageInfo {
 type Post {
   id: ID!
   langauge: Language!
-  library: Library!
+  library: [Library!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -95,7 +95,7 @@ type Post {
   author: String
   href: String!
   image: String
-  price: Int
+  price: PriceRange!
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   user: User!
   createdAt: DateTime!
@@ -109,7 +109,7 @@ type PostConnection {
 
 input PostCreateInput {
   langauge: Language!
-  library: Library!
+  library: PostCreatelibraryInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -117,9 +117,13 @@ input PostCreateInput {
   author: String
   href: String!
   image: String
-  price: Int
+  price: PriceRange!
   reviews: ReviewCreateManyWithoutPostInput
   user: UserCreateOneWithoutPostsInput!
+}
+
+input PostCreatelibraryInput {
+  set: [Library!]
 }
 
 input PostCreateManyWithoutUserInput {
@@ -134,7 +138,7 @@ input PostCreateOneWithoutReviewsInput {
 
 input PostCreateWithoutReviewsInput {
   langauge: Language!
-  library: Library!
+  library: PostCreatelibraryInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -142,13 +146,13 @@ input PostCreateWithoutReviewsInput {
   author: String
   href: String!
   image: String
-  price: Int
+  price: PriceRange!
   user: UserCreateOneWithoutPostsInput!
 }
 
 input PostCreateWithoutUserInput {
   langauge: Language!
-  library: Library!
+  library: PostCreatelibraryInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -156,7 +160,7 @@ input PostCreateWithoutUserInput {
   author: String
   href: String!
   image: String
-  price: Int
+  price: PriceRange!
   reviews: ReviewCreateManyWithoutPostInput
 }
 
@@ -170,8 +174,6 @@ enum PostOrderByInput {
   id_DESC
   langauge_ASC
   langauge_DESC
-  library_ASC
-  library_DESC
   contentType_ASC
   contentType_DESC
   difficulty_ASC
@@ -197,7 +199,7 @@ enum PostOrderByInput {
 type PostPreviousValues {
   id: ID!
   langauge: Language!
-  library: Library!
+  library: [Library!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -205,7 +207,7 @@ type PostPreviousValues {
   author: String
   href: String!
   image: String
-  price: Int
+  price: PriceRange!
   createdAt: DateTime!
 }
 
@@ -229,7 +231,7 @@ input PostSubscriptionWhereInput {
 
 input PostUpdateInput {
   langauge: Language
-  library: Library
+  library: PostUpdatelibraryInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -237,14 +239,18 @@ input PostUpdateInput {
   author: String
   href: String
   image: String
-  price: Int
+  price: PriceRange
   reviews: ReviewUpdateManyWithoutPostInput
   user: UserUpdateOneRequiredWithoutPostsInput
 }
 
+input PostUpdatelibraryInput {
+  set: [Library!]
+}
+
 input PostUpdateManyMutationInput {
   langauge: Language
-  library: Library
+  library: PostUpdatelibraryInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -252,7 +258,7 @@ input PostUpdateManyMutationInput {
   author: String
   href: String
   image: String
-  price: Int
+  price: PriceRange
 }
 
 input PostUpdateManyWithoutUserInput {
@@ -273,7 +279,7 @@ input PostUpdateOneRequiredWithoutReviewsInput {
 
 input PostUpdateWithoutReviewsDataInput {
   langauge: Language
-  library: Library
+  library: PostUpdatelibraryInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -281,13 +287,13 @@ input PostUpdateWithoutReviewsDataInput {
   author: String
   href: String
   image: String
-  price: Int
+  price: PriceRange
   user: UserUpdateOneRequiredWithoutPostsInput
 }
 
 input PostUpdateWithoutUserDataInput {
   langauge: Language
-  library: Library
+  library: PostUpdatelibraryInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -295,7 +301,7 @@ input PostUpdateWithoutUserDataInput {
   author: String
   href: String
   image: String
-  price: Int
+  price: PriceRange
   reviews: ReviewUpdateManyWithoutPostInput
 }
 
@@ -334,10 +340,6 @@ input PostWhereInput {
   langauge_not: Language
   langauge_in: [Language!]
   langauge_not_in: [Language!]
-  library: Library
-  library_not: Library
-  library_in: [Library!]
-  library_not_in: [Library!]
   contentType: ContentType
   contentType_not: ContentType
   contentType_in: [ContentType!]
@@ -416,14 +418,10 @@ input PostWhereInput {
   image_not_starts_with: String
   image_ends_with: String
   image_not_ends_with: String
-  price: Int
-  price_not: Int
-  price_in: [Int!]
-  price_not_in: [Int!]
-  price_lt: Int
-  price_lte: Int
-  price_gt: Int
-  price_gte: Int
+  price: PriceRange
+  price_not: PriceRange
+  price_in: [PriceRange!]
+  price_not_in: [PriceRange!]
   reviews_every: ReviewWhereInput
   reviews_some: ReviewWhereInput
   reviews_none: ReviewWhereInput
@@ -443,6 +441,13 @@ input PostWhereInput {
 
 input PostWhereUniqueInput {
   id: ID
+}
+
+enum PriceRange {
+  FREE
+  LOW
+  MID
+  HIGH
 }
 
 type Query {

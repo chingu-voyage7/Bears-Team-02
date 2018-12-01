@@ -13,7 +13,7 @@ type User {
 type Post {
   id: ID! @unique
   langauge: Language!
-  library: Library!
+  library: [Library!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -21,8 +21,8 @@ type Post {
   author: String
   href: String!
   image: String
-  price: Int
-  reviews: [Review]
+  price: PriceRange!
+  reviews: [Review]!
   user: User!
   createdAt: DateTime!
 }
@@ -44,10 +44,10 @@ enum Language {
 }
 
 enum Library {
-  NATIVE # built into the language
+  NATIVE
   REACT
-  SCRAPY
-  ON_POSIX
+  GRAPHQL
+  NEXT
 }
 
 # general categories of content
@@ -64,4 +64,12 @@ enum Difficulty {
   INTERMEDIATE
   HARD
   EXPERT
+}
+
+# price range
+enum PriceRange {
+  FREE
+  LOW
+  MID
+  HIGH
 }
