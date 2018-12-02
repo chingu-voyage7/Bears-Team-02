@@ -202,8 +202,6 @@ export type PostOrderByInput =
   | "id_DESC"
   | "langauge_ASC"
   | "langauge_DESC"
-  | "library_ASC"
-  | "library_DESC"
   | "contentType_ASC"
   | "contentType_DESC"
   | "difficulty_ASC"
@@ -224,6 +222,8 @@ export type PostOrderByInput =
   | "createdAt_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
+
+export type PriceRange = "FREE" | "LOW" | "MID" | "HIGH";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -247,25 +247,25 @@ export type Difficulty = "EASY" | "INTERMEDIATE" | "HARD" | "EXPERT";
 
 export type ContentType = "DOCUMENTATION" | "TUTORIAL" | "BOOK" | "ARTICLE";
 
-export type Library = "NATIVE" | "REACT" | "SCRAPY" | "ON_POSIX";
+export type Library = "NATIVE" | "REACT" | "GRAPHQL" | "NEXT";
 
 export type Language = "JAVASCRIPT" | "PYTHON" | "CPLUSPLUS";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface PostCreateOneWithoutReviewsInput {
-  create?: PostCreateWithoutReviewsInput;
-  connect?: PostWhereUniqueInput;
+export interface ReviewCreateWithoutUserInput {
+  rating: Int;
+  text?: String;
+  post: PostCreateOneWithoutReviewsInput;
 }
 
 export type PostWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface ReviewUpdateWithoutPostDataInput {
-  rating?: Int;
-  text?: String;
-  user?: UserUpdateOneRequiredWithoutReviewsInput;
+export interface ReviewUpdateWithWhereUniqueWithoutPostInput {
+  where: ReviewWhereUniqueInput;
+  data: ReviewUpdateWithoutPostDataInput;
 }
 
 export interface UserWhereInput {
@@ -384,7 +384,7 @@ export interface ReviewUpdateWithWhereUniqueWithoutUserInput {
 
 export interface PostCreateWithoutUserInput {
   langauge: Language;
-  library: Library;
+  library?: PostCreatelibraryInput;
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -392,15 +392,14 @@ export interface PostCreateWithoutUserInput {
   author?: String;
   href: String;
   image?: String;
-  price?: Int;
+  price: PriceRange;
   reviews?: ReviewCreateManyWithoutPostInput;
 }
 
-export interface UserUpdateOneRequiredWithoutReviewsInput {
-  create?: UserCreateWithoutReviewsInput;
-  update?: UserUpdateWithoutReviewsDataInput;
-  upsert?: UserUpsertWithoutReviewsInput;
-  connect?: UserWhereUniqueInput;
+export interface ReviewUpdateWithoutPostDataInput {
+  rating?: Int;
+  text?: String;
+  user?: UserUpdateOneRequiredWithoutReviewsInput;
 }
 
 export interface UserCreateOneWithoutPostsInput {
@@ -428,12 +427,15 @@ export interface UserCreateWithoutPostsInput {
   reviews?: ReviewCreateManyWithoutUserInput;
 }
 
-export interface UserUpdateManyMutationInput {
-  name?: String;
-  email?: String;
-  image?: String;
-  password?: String;
-  oauthId?: String;
+export interface PostSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: PostWhereInput;
+  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
 }
 
 export interface ReviewCreateManyWithoutUserInput {
@@ -441,20 +443,31 @@ export interface ReviewCreateManyWithoutUserInput {
   connect?: ReviewWhereUniqueInput[] | ReviewWhereUniqueInput;
 }
 
-export interface UserCreateInput {
-  name: String;
-  email: String;
+export interface UserUpdateInput {
+  name?: String;
+  email?: String;
   image?: String;
   password?: String;
   oauthId?: String;
-  posts?: PostCreateManyWithoutUserInput;
-  reviews?: ReviewCreateManyWithoutUserInput;
+  posts?: PostUpdateManyWithoutUserInput;
+  reviews?: ReviewUpdateManyWithoutUserInput;
 }
 
-export interface ReviewCreateWithoutUserInput {
-  rating: Int;
+export interface PostUpdateOneRequiredWithoutReviewsInput {
+  create?: PostCreateWithoutReviewsInput;
+  update?: PostUpdateWithoutReviewsDataInput;
+  upsert?: PostUpsertWithoutReviewsInput;
+  connect?: PostWhereUniqueInput;
+}
+
+export interface ReviewUpdateManyMutationInput {
+  rating?: Int;
   text?: String;
-  post: PostCreateOneWithoutReviewsInput;
+}
+
+export interface PostCreateOneWithoutReviewsInput {
+  create?: PostCreateWithoutReviewsInput;
+  connect?: PostWhereUniqueInput;
 }
 
 export interface ReviewUpdateInput {
@@ -464,22 +477,9 @@ export interface ReviewUpdateInput {
   post?: PostUpdateOneRequiredWithoutReviewsInput;
 }
 
-export interface ReviewUpdateWithoutUserDataInput {
-  rating?: Int;
-  text?: String;
-  post?: PostUpdateOneRequiredWithoutReviewsInput;
-}
-
-export interface ReviewCreateInput {
-  rating: Int;
-  text?: String;
-  user: UserCreateOneWithoutReviewsInput;
-  post: PostCreateOneWithoutReviewsInput;
-}
-
 export interface PostCreateWithoutReviewsInput {
   langauge: Language;
-  library: Library;
+  library?: PostCreatelibraryInput;
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -487,18 +487,13 @@ export interface PostCreateWithoutReviewsInput {
   author?: String;
   href: String;
   image?: String;
-  price?: Int;
+  price: PriceRange;
   user: UserCreateOneWithoutPostsInput;
 }
 
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
-}
-
-export interface PostUpdateInput {
+export interface PostUpdateManyMutationInput {
   langauge?: Language;
-  library?: Library;
+  library?: PostUpdatelibraryInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -506,15 +501,36 @@ export interface PostUpdateInput {
   author?: String;
   href?: String;
   image?: String;
-  price?: Int;
+  price?: PriceRange;
+}
+
+export interface PostUpdateInput {
+  langauge?: Language;
+  library?: PostUpdatelibraryInput;
+  contentType?: ContentType;
+  difficulty?: Difficulty;
+  title?: String;
+  description?: String;
+  author?: String;
+  href?: String;
+  image?: String;
+  price?: PriceRange;
   reviews?: ReviewUpdateManyWithoutPostInput;
   user?: UserUpdateOneRequiredWithoutPostsInput;
 }
 
-export interface ReviewUpsertWithWhereUniqueWithoutUserInput {
-  where: ReviewWhereUniqueInput;
-  update: ReviewUpdateWithoutUserDataInput;
-  create: ReviewCreateWithoutUserInput;
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput;
+  create: UserCreateWithoutPostsInput;
+}
+
+export interface PostUpdatelibraryInput {
+  set?: Library[] | Library;
+}
+
+export interface PostUpsertWithoutReviewsInput {
+  update: PostUpdateWithoutReviewsDataInput;
+  create: PostCreateWithoutReviewsInput;
 }
 
 export interface ReviewUpdateManyWithoutPostInput {
@@ -530,28 +546,8 @@ export interface ReviewUpdateManyWithoutPostInput {
     | ReviewUpsertWithWhereUniqueWithoutPostInput;
 }
 
-export interface PostUpdateWithoutReviewsDataInput {
-  langauge?: Language;
-  library?: Library;
-  contentType?: ContentType;
-  difficulty?: Difficulty;
-  title?: String;
-  description?: String;
-  author?: String;
-  href?: String;
-  image?: String;
-  price?: Int;
-  user?: UserUpdateOneRequiredWithoutPostsInput;
-}
-
-export interface ReviewUpdateWithWhereUniqueWithoutPostInput {
-  where: ReviewWhereUniqueInput;
-  data: ReviewUpdateWithoutPostDataInput;
-}
-
-export interface ReviewCreateManyWithoutPostInput {
-  create?: ReviewCreateWithoutPostInput[] | ReviewCreateWithoutPostInput;
-  connect?: ReviewWhereUniqueInput[] | ReviewWhereUniqueInput;
+export interface PostCreatelibraryInput {
+  set?: Library[] | Library;
 }
 
 export interface PostWhereInput {
@@ -573,10 +569,6 @@ export interface PostWhereInput {
   langauge_not?: Language;
   langauge_in?: Language[] | Language;
   langauge_not_in?: Language[] | Language;
-  library?: Library;
-  library_not?: Library;
-  library_in?: Library[] | Library;
-  library_not_in?: Library[] | Library;
   contentType?: ContentType;
   contentType_not?: ContentType;
   contentType_in?: ContentType[] | ContentType;
@@ -655,14 +647,10 @@ export interface PostWhereInput {
   image_not_starts_with?: String;
   image_ends_with?: String;
   image_not_ends_with?: String;
-  price?: Int;
-  price_not?: Int;
-  price_in?: Int[] | Int;
-  price_not_in?: Int[] | Int;
-  price_lt?: Int;
-  price_lte?: Int;
-  price_gt?: Int;
-  price_gte?: Int;
+  price?: PriceRange;
+  price_not?: PriceRange;
+  price_in?: PriceRange[] | PriceRange;
+  price_not_in?: PriceRange[] | PriceRange;
   reviews_every?: ReviewWhereInput;
   reviews_some?: ReviewWhereInput;
   reviews_none?: ReviewWhereInput;
@@ -680,8 +668,31 @@ export interface PostWhereInput {
   NOT?: PostWhereInput[] | PostWhereInput;
 }
 
-export interface UserCreateOneWithoutReviewsInput {
+export interface ReviewCreateWithoutPostInput {
+  rating: Int;
+  text?: String;
+  user: UserCreateOneWithoutReviewsInput;
+}
+
+export interface ReviewUpdateWithoutUserDataInput {
+  rating?: Int;
+  text?: String;
+  post?: PostUpdateOneRequiredWithoutReviewsInput;
+}
+
+export interface UserCreateWithoutReviewsInput {
+  name: String;
+  email: String;
+  image?: String;
+  password?: String;
+  oauthId?: String;
+  posts?: PostCreateManyWithoutUserInput;
+}
+
+export interface UserUpdateOneRequiredWithoutReviewsInput {
   create?: UserCreateWithoutReviewsInput;
+  update?: UserUpdateWithoutReviewsDataInput;
+  upsert?: UserUpsertWithoutReviewsInput;
   connect?: UserWhereUniqueInput;
 }
 
@@ -737,17 +748,6 @@ export interface ReviewWhereInput {
   NOT?: ReviewWhereInput[] | ReviewWhereInput;
 }
 
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
 export interface UserUpdateWithoutReviewsDataInput {
   name?: String;
   email?: String;
@@ -757,14 +757,14 @@ export interface UserUpdateWithoutReviewsDataInput {
   posts?: PostUpdateManyWithoutUserInput;
 }
 
-export interface UserUpdateInput {
-  name?: String;
-  email?: String;
+export interface UserCreateInput {
+  name: String;
+  email: String;
   image?: String;
   password?: String;
   oauthId?: String;
-  posts?: PostUpdateManyWithoutUserInput;
-  reviews?: ReviewUpdateManyWithoutUserInput;
+  posts?: PostCreateManyWithoutUserInput;
+  reviews?: ReviewCreateManyWithoutUserInput;
 }
 
 export interface PostUpdateManyWithoutUserInput {
@@ -780,23 +780,27 @@ export interface PostUpdateManyWithoutUserInput {
     | PostUpsertWithWhereUniqueWithoutUserInput;
 }
 
-export type ReviewWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface ReviewCreateInput {
+  rating: Int;
+  text?: String;
+  user: UserCreateOneWithoutReviewsInput;
+  post: PostCreateOneWithoutReviewsInput;
+}
 
 export interface PostUpdateWithWhereUniqueWithoutUserInput {
   where: PostWhereUniqueInput;
   data: PostUpdateWithoutUserDataInput;
 }
 
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-}>;
+export interface ReviewUpsertWithWhereUniqueWithoutUserInput {
+  where: ReviewWhereUniqueInput;
+  update: ReviewUpdateWithoutUserDataInput;
+  create: ReviewCreateWithoutUserInput;
+}
 
 export interface PostUpdateWithoutUserDataInput {
   langauge?: Language;
-  library?: Library;
+  library?: PostUpdatelibraryInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -804,15 +808,23 @@ export interface PostUpdateWithoutUserDataInput {
   author?: String;
   href?: String;
   image?: String;
-  price?: Int;
+  price?: PriceRange;
   reviews?: ReviewUpdateManyWithoutPostInput;
 }
 
-export interface PostUpdateOneRequiredWithoutReviewsInput {
-  create?: PostCreateWithoutReviewsInput;
-  update?: PostUpdateWithoutReviewsDataInput;
-  upsert?: PostUpsertWithoutReviewsInput;
-  connect?: PostWhereUniqueInput;
+export interface PostCreateInput {
+  langauge: Language;
+  library?: PostCreatelibraryInput;
+  contentType: ContentType;
+  difficulty: Difficulty;
+  title: String;
+  description: String;
+  author?: String;
+  href: String;
+  image?: String;
+  price: PriceRange;
+  reviews?: ReviewCreateManyWithoutPostInput;
+  user: UserCreateOneWithoutPostsInput;
 }
 
 export interface PostUpsertWithWhereUniqueWithoutUserInput {
@@ -821,10 +833,9 @@ export interface PostUpsertWithWhereUniqueWithoutUserInput {
   create: PostCreateWithoutUserInput;
 }
 
-export interface ReviewCreateWithoutPostInput {
-  rating: Int;
-  text?: String;
-  user: UserCreateOneWithoutReviewsInput;
+export interface UserCreateOneWithoutReviewsInput {
+  create?: UserCreateWithoutReviewsInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface UserUpsertWithoutReviewsInput {
@@ -832,15 +843,12 @@ export interface UserUpsertWithoutReviewsInput {
   create: UserCreateWithoutReviewsInput;
 }
 
-export interface PostSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: PostWhereInput;
-  AND?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  OR?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
-  NOT?: PostSubscriptionWhereInput[] | PostSubscriptionWhereInput;
+export interface UserUpdateManyMutationInput {
+  name?: String;
+  email?: String;
+  image?: String;
+  password?: String;
+  oauthId?: String;
 }
 
 export interface ReviewUpdateManyWithoutUserInput {
@@ -878,43 +886,29 @@ export interface ReviewUpsertWithWhereUniqueWithoutPostInput {
   create: ReviewCreateWithoutPostInput;
 }
 
-export interface ReviewUpdateManyMutationInput {
-  rating?: Int;
-  text?: String;
+export type ReviewWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
-export interface UserCreateWithoutReviewsInput {
-  name: String;
-  email: String;
-  image?: String;
-  password?: String;
-  oauthId?: String;
-  posts?: PostCreateManyWithoutUserInput;
+export interface ReviewCreateManyWithoutPostInput {
+  create?: ReviewCreateWithoutPostInput[] | ReviewCreateWithoutPostInput;
+  connect?: ReviewWhereUniqueInput[] | ReviewWhereUniqueInput;
 }
 
-export interface PostCreateInput {
-  langauge: Language;
-  library: Library;
-  contentType: ContentType;
-  difficulty: Difficulty;
-  title: String;
-  description: String;
-  author?: String;
-  href: String;
-  image?: String;
-  price?: Int;
-  reviews?: ReviewCreateManyWithoutPostInput;
-  user: UserCreateOneWithoutPostsInput;
-}
-
-export interface PostUpsertWithoutReviewsInput {
-  update: PostUpdateWithoutReviewsDataInput;
-  create: PostCreateWithoutReviewsInput;
-}
-
-export interface PostUpdateManyMutationInput {
+export interface PostUpdateWithoutReviewsDataInput {
   langauge?: Language;
-  library?: Library;
+  library?: PostUpdatelibraryInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -922,8 +916,14 @@ export interface PostUpdateManyMutationInput {
   author?: String;
   href?: String;
   image?: String;
-  price?: Int;
+  price?: PriceRange;
+  user?: UserUpdateOneRequiredWithoutPostsInput;
 }
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
 
 export interface NodeNode {
   id: ID_Output;
@@ -960,177 +960,6 @@ export interface UserPreviousValuesSubscription
   image: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   oauthId: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface PostEdge {
-  cursor: String;
-}
-
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
-    Fragmentable {
-  node: <T = PostSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ReviewSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface ReviewSubscriptionPayloadPromise
-  extends Promise<ReviewSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ReviewPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ReviewPreviousValuesPromise>() => T;
-}
-
-export interface ReviewSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ReviewSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ReviewSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ReviewPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UserConnection {}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateReview {
-  count: Int;
-}
-
-export interface AggregateReviewPromise
-  extends Promise<AggregateReview>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateReviewSubscription
-  extends Promise<AsyncIterator<AggregateReview>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface PostConnection {}
-
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
-}
-
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ReviewPreviousValues {
-  id: ID_Output;
-  rating: Int;
-  text?: String;
-  createdAt: DateTimeOutput;
-}
-
-export interface ReviewPreviousValuesPromise
-  extends Promise<ReviewPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  rating: () => Promise<Int>;
-  text: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ReviewPreviousValuesSubscription
-  extends Promise<AsyncIterator<ReviewPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  rating: () => Promise<AsyncIterator<Int>>;
-  text: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -1228,10 +1057,184 @@ export interface UserSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface AggregatePost {
+  count: Int;
+}
+
+export interface AggregatePostPromise
+  extends Promise<AggregatePost>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePostSubscription
+  extends Promise<AsyncIterator<AggregatePost>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface PostEdge {
+  cursor: String;
+}
+
+export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
+  node: <T = PostPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PostEdgeSubscription
+  extends Promise<AsyncIterator<PostEdge>>,
+    Fragmentable {
+  node: <T = PostSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ReviewPreviousValues {
+  id: ID_Output;
+  rating: Int;
+  text?: String;
+  createdAt: DateTimeOutput;
+}
+
+export interface ReviewPreviousValuesPromise
+  extends Promise<ReviewPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  rating: () => Promise<Int>;
+  text: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ReviewPreviousValuesSubscription
+  extends Promise<AsyncIterator<ReviewPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  rating: () => Promise<AsyncIterator<Int>>;
+  text: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UserEdge {
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ReviewSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface ReviewSubscriptionPayloadPromise
+  extends Promise<ReviewSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ReviewPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ReviewPreviousValuesPromise>() => T;
+}
+
+export interface ReviewSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ReviewSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ReviewSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ReviewPreviousValuesSubscription>() => T;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface ReviewEdge {
+  cursor: String;
+}
+
+export interface ReviewEdgePromise extends Promise<ReviewEdge>, Fragmentable {
+  node: <T = ReviewPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ReviewEdgeSubscription
+  extends Promise<AsyncIterator<ReviewEdge>>,
+    Fragmentable {
+  node: <T = ReviewSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface PostPreviousValues {
   id: ID_Output;
   langauge: Language;
-  library: Library;
+  library: Library[];
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -1239,7 +1242,7 @@ export interface PostPreviousValues {
   author?: String;
   href: String;
   image?: String;
-  price?: Int;
+  price: PriceRange;
   createdAt: DateTimeOutput;
 }
 
@@ -1248,7 +1251,7 @@ export interface PostPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   langauge: () => Promise<Language>;
-  library: () => Promise<Library>;
+  library: () => Promise<Library[]>;
   contentType: () => Promise<ContentType>;
   difficulty: () => Promise<Difficulty>;
   title: () => Promise<String>;
@@ -1256,7 +1259,7 @@ export interface PostPreviousValuesPromise
   author: () => Promise<String>;
   href: () => Promise<String>;
   image: () => Promise<String>;
-  price: () => Promise<Int>;
+  price: () => Promise<PriceRange>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
@@ -1265,7 +1268,7 @@ export interface PostPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   langauge: () => Promise<AsyncIterator<Language>>;
-  library: () => Promise<AsyncIterator<Library>>;
+  library: () => Promise<AsyncIterator<Library[]>>;
   contentType: () => Promise<AsyncIterator<ContentType>>;
   difficulty: () => Promise<AsyncIterator<Difficulty>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -1273,7 +1276,7 @@ export interface PostPreviousValuesSubscription
   author: () => Promise<AsyncIterator<String>>;
   href: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<PriceRange>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -1303,7 +1306,7 @@ export interface PostSubscriptionPayloadSubscription
 export interface Post {
   id: ID_Output;
   langauge: Language;
-  library: Library;
+  library: Library[];
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -1311,14 +1314,14 @@ export interface Post {
   author?: String;
   href: String;
   image?: String;
-  price?: Int;
+  price: PriceRange;
   createdAt: DateTimeOutput;
 }
 
 export interface PostPromise extends Promise<Post>, Fragmentable {
   id: () => Promise<ID_Output>;
   langauge: () => Promise<Language>;
-  library: () => Promise<Library>;
+  library: () => Promise<Library[]>;
   contentType: () => Promise<ContentType>;
   difficulty: () => Promise<Difficulty>;
   title: () => Promise<String>;
@@ -1326,7 +1329,7 @@ export interface PostPromise extends Promise<Post>, Fragmentable {
   author: () => Promise<String>;
   href: () => Promise<String>;
   image: () => Promise<String>;
-  price: () => Promise<Int>;
+  price: () => Promise<PriceRange>;
   reviews: <T = FragmentableArray<Review>>(
     args?: {
       where?: ReviewWhereInput;
@@ -1347,7 +1350,7 @@ export interface PostSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   langauge: () => Promise<AsyncIterator<Language>>;
-  library: () => Promise<AsyncIterator<Library>>;
+  library: () => Promise<AsyncIterator<Library[]>>;
   contentType: () => Promise<AsyncIterator<ContentType>>;
   difficulty: () => Promise<AsyncIterator<Difficulty>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -1355,7 +1358,7 @@ export interface PostSubscription
   author: () => Promise<AsyncIterator<String>>;
   href: () => Promise<AsyncIterator<String>>;
   image: () => Promise<AsyncIterator<String>>;
-  price: () => Promise<AsyncIterator<Int>>;
+  price: () => Promise<AsyncIterator<PriceRange>>;
   reviews: <T = Promise<AsyncIterator<ReviewSubscription>>>(
     args?: {
       where?: ReviewWhereInput;
@@ -1371,18 +1374,36 @@ export interface PostSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregatePost {
+export interface PostConnection {}
+
+export interface PostConnectionPromise
+  extends Promise<PostConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PostEdge>>() => T;
+  aggregate: <T = AggregatePostPromise>() => T;
+}
+
+export interface PostConnectionSubscription
+  extends Promise<AsyncIterator<PostConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePostSubscription>() => T;
+}
+
+export interface AggregateUser {
   count: Int;
 }
 
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -1414,65 +1435,39 @@ export interface ReviewSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ReviewEdge {
-  cursor: String;
+export interface AggregateReview {
+  count: Int;
 }
 
-export interface ReviewEdgePromise extends Promise<ReviewEdge>, Fragmentable {
-  node: <T = ReviewPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ReviewEdgeSubscription
-  extends Promise<AsyncIterator<ReviewEdge>>,
+export interface AggregateReviewPromise
+  extends Promise<AggregateReview>,
     Fragmentable {
-  node: <T = ReviewSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Int>;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface AggregateReviewSubscription
+  extends Promise<AsyncIterator<AggregateReview>>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface UserConnection {}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface UserEdge {
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1485,10 +1480,9 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
-export type ID_Input = string | number;
-export type ID_Output = string;
+export type Int = number;
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
@@ -1498,9 +1492,15 @@ export type String = string;
 export type Long = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type Int = number;
+export type ID_Input = string | number;
+export type ID_Output = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /**
  * Model Metadata
@@ -1525,6 +1525,10 @@ export const models = [
   },
   {
     name: "Post",
+    embedded: false
+  },
+  {
+    name: "PriceRange",
     embedded: false
   },
   {
