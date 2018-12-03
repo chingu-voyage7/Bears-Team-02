@@ -6,9 +6,72 @@ type User {
   email: String!
   image: String
   password: String
+  oauthId: String
+  posts: [Post]
+  reviews: [Review]
   createdAt: DateTime!
 }
 
-type Query {
-  users: [User]
+type Post {
+  id: ID!
+  language: Language!
+  tags: [String!]!
+  contentType: ContentType!
+  difficulty: Difficulty!
+  title: String!
+  description: String!
+  author: String
+  href: String!
+  image: String
+  price: PriceRange!
+  reviews: [Review]!
+  user: User!
+  createdAt: DateTime!
+}
+
+type Review {
+  id: ID!
+  rating: Int!
+  text: String
+  user: User!
+  post: Post!
+  createdAt: DateTime!
+}
+
+# various programming languages
+enum Language {
+  JAVASCRIPT
+  PYTHON
+  CSHARP
+  CSS
+  CLI
+  LINUX
+  AWS
+  GIT
+  JAVA
+  MARKDOWN
+}
+
+# general categories of content
+enum ContentType {
+  DOCUMENTATION
+  TUTORIAL
+  BOOK
+  ARTICLE
+}
+
+# difficulty level of content
+enum Difficulty {
+  EASY
+  INTERMEDIATE
+  HARD
+  EXPERT
+}
+
+# price range
+enum PriceRange {
+  FREE
+  LOW
+  MID
+  HIGH
 }
