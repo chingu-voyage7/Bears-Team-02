@@ -185,6 +185,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type Role = "USER" | "ADMIN";
+
 export type ReviewOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -242,6 +244,8 @@ export type UserOrderByInput =
   | "password_DESC"
   | "oauthId_ASC"
   | "oauthId_DESC"
+  | "role_ASC"
+  | "role_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -261,9 +265,10 @@ export type Language =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface PostCreateOneWithoutReviewsInput {
-  create?: PostCreateWithoutReviewsInput;
-  connect?: PostWhereUniqueInput;
+export interface ReviewCreateWithoutUserInput {
+  rating: Int;
+  text?: String;
+  post: PostCreateOneWithoutReviewsInput;
 }
 
 export type PostWhereUniqueInput = AtLeastOne<{
@@ -360,6 +365,10 @@ export interface UserWhereInput {
   oauthId_not_starts_with?: String;
   oauthId_ends_with?: String;
   oauthId_not_ends_with?: String;
+  role?: Role;
+  role_not?: Role;
+  role_in?: Role[] | Role;
+  role_not_in?: Role[] | Role;
   posts_every?: PostWhereInput;
   posts_some?: PostWhereInput;
   posts_none?: PostWhereInput;
@@ -396,7 +405,7 @@ export interface PostCreateWithoutUserInput {
   difficulty: Difficulty;
   title: String;
   description: String;
-  author?: String;
+  author: String;
   href: String;
   image?: String;
   price: PriceRange;
@@ -431,6 +440,7 @@ export interface UserCreateWithoutPostsInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   reviews?: ReviewCreateManyWithoutUserInput;
 }
 
@@ -456,14 +466,16 @@ export interface UserUpdateInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   posts?: PostUpdateManyWithoutUserInput;
   reviews?: ReviewUpdateManyWithoutUserInput;
 }
 
-export interface ReviewCreateWithoutUserInput {
-  rating: Int;
-  text?: String;
-  post: PostCreateOneWithoutReviewsInput;
+export interface PostUpdateOneRequiredWithoutReviewsInput {
+  create?: PostCreateWithoutReviewsInput;
+  update?: PostUpdateWithoutReviewsDataInput;
+  upsert?: PostUpsertWithoutReviewsInput;
+  connect?: PostWhereUniqueInput;
 }
 
 export interface ReviewUpdateManyMutationInput {
@@ -471,10 +483,8 @@ export interface ReviewUpdateManyMutationInput {
   text?: String;
 }
 
-export interface PostUpdateOneRequiredWithoutReviewsInput {
+export interface PostCreateOneWithoutReviewsInput {
   create?: PostCreateWithoutReviewsInput;
-  update?: PostUpdateWithoutReviewsDataInput;
-  upsert?: PostUpsertWithoutReviewsInput;
   connect?: PostWhereUniqueInput;
 }
 
@@ -492,7 +502,7 @@ export interface PostCreateWithoutReviewsInput {
   difficulty: Difficulty;
   title: String;
   description: String;
-  author?: String;
+  author: String;
   href: String;
   image?: String;
   price: PriceRange;
@@ -694,6 +704,7 @@ export interface UserCreateWithoutReviewsInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   posts?: PostCreateManyWithoutUserInput;
 }
 
@@ -762,6 +773,7 @@ export interface UserUpdateWithoutReviewsDataInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   posts?: PostUpdateManyWithoutUserInput;
 }
 
@@ -771,6 +783,7 @@ export interface UserCreateInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   posts?: PostCreateManyWithoutUserInput;
   reviews?: ReviewCreateManyWithoutUserInput;
 }
@@ -827,7 +840,7 @@ export interface PostCreateInput {
   difficulty: Difficulty;
   title: String;
   description: String;
-  author?: String;
+  author: String;
   href: String;
   image?: String;
   price: PriceRange;
@@ -857,6 +870,7 @@ export interface UserUpdateManyMutationInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
 }
 
 export interface ReviewUpdateManyWithoutUserInput {
@@ -878,6 +892,7 @@ export interface UserUpdateWithoutPostsDataInput {
   image?: String;
   password?: String;
   oauthId?: String;
+  role?: Role;
   reviews?: ReviewUpdateManyWithoutUserInput;
 }
 
@@ -944,6 +959,7 @@ export interface UserPreviousValues {
   image?: String;
   password?: String;
   oauthId?: String;
+  role: Role;
   createdAt: DateTimeOutput;
 }
 
@@ -956,6 +972,7 @@ export interface UserPreviousValuesPromise
   image: () => Promise<String>;
   password: () => Promise<String>;
   oauthId: () => Promise<String>;
+  role: () => Promise<Role>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
@@ -968,6 +985,7 @@ export interface UserPreviousValuesSubscription
   image: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   oauthId: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
@@ -996,6 +1014,7 @@ export interface User {
   image?: String;
   password?: String;
   oauthId?: String;
+  role: Role;
   createdAt: DateTimeOutput;
 }
 
@@ -1006,6 +1025,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   image: () => Promise<String>;
   password: () => Promise<String>;
   oauthId: () => Promise<String>;
+  role: () => Promise<Role>;
   posts: <T = FragmentableArray<Post>>(
     args?: {
       where?: PostWhereInput;
@@ -1040,6 +1060,7 @@ export interface UserSubscription
   image: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
   oauthId: () => Promise<AsyncIterator<String>>;
+  role: () => Promise<AsyncIterator<Role>>;
   posts: <T = Promise<AsyncIterator<PostSubscription>>>(
     args?: {
       where?: PostWhereInput;
@@ -1247,7 +1268,7 @@ export interface PostPreviousValues {
   difficulty: Difficulty;
   title: String;
   description: String;
-  author?: String;
+  author: String;
   href: String;
   image?: String;
   price: PriceRange;
@@ -1319,7 +1340,7 @@ export interface Post {
   difficulty: Difficulty;
   title: String;
   description: String;
-  author?: String;
+  author: String;
   href: String;
   image?: String;
   price: PriceRange;
@@ -1537,6 +1558,10 @@ export const models = [
   },
   {
     name: "Review",
+    embedded: false
+  },
+  {
+    name: "Role",
     embedded: false
   },
   {

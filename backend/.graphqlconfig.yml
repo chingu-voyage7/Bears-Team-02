@@ -8,4 +8,4 @@ projects:
   prisma:
     schemaPath: 'src/generated/prisma.graphql'
     extensions:
-      prisma: prisma.yml
+      prisma: database/prisma.yml

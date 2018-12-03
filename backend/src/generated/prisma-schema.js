@@ -92,7 +92,7 @@ type Post {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
@@ -114,7 +114,7 @@ input PostCreateInput {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
@@ -143,7 +143,7 @@ input PostCreateWithoutReviewsInput {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
@@ -157,7 +157,7 @@ input PostCreateWithoutUserInput {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
@@ -204,7 +204,7 @@ type PostPreviousValues {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
@@ -670,6 +670,11 @@ input ReviewWhereUniqueInput {
   id: ID
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 type Subscription {
   post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   review(where: ReviewSubscriptionWhereInput): ReviewSubscriptionPayload
@@ -683,6 +688,7 @@ type User {
   image: String
   password: String
   oauthId: String
+  role: Role!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Review!]
   createdAt: DateTime!
@@ -700,6 +706,7 @@ input UserCreateInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   posts: PostCreateManyWithoutUserInput
   reviews: ReviewCreateManyWithoutUserInput
 }
@@ -720,6 +727,7 @@ input UserCreateWithoutPostsInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   reviews: ReviewCreateManyWithoutUserInput
 }
 
@@ -729,6 +737,7 @@ input UserCreateWithoutReviewsInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   posts: PostCreateManyWithoutUserInput
 }
 
@@ -750,6 +759,8 @@ enum UserOrderByInput {
   password_DESC
   oauthId_ASC
   oauthId_DESC
+  role_ASC
+  role_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -763,6 +774,7 @@ type UserPreviousValues {
   image: String
   password: String
   oauthId: String
+  role: Role!
   createdAt: DateTime!
 }
 
@@ -790,6 +802,7 @@ input UserUpdateInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   posts: PostUpdateManyWithoutUserInput
   reviews: ReviewUpdateManyWithoutUserInput
 }
@@ -800,6 +813,7 @@ input UserUpdateManyMutationInput {
   image: String
   password: String
   oauthId: String
+  role: Role
 }
 
 input UserUpdateOneRequiredWithoutPostsInput {
@@ -822,6 +836,7 @@ input UserUpdateWithoutPostsDataInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   reviews: ReviewUpdateManyWithoutUserInput
 }
 
@@ -831,6 +846,7 @@ input UserUpdateWithoutReviewsDataInput {
   image: String
   password: String
   oauthId: String
+  role: Role
   posts: PostUpdateManyWithoutUserInput
 }
 
@@ -929,6 +945,10 @@ input UserWhereInput {
   oauthId_not_starts_with: String
   oauthId_ends_with: String
   oauthId_not_ends_with: String
+  role: Role
+  role_not: Role
+  role_in: [Role!]
+  role_not_in: [Role!]
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

@@ -1,6 +1,7 @@
 require('dotenv').config()
 const parse = require('csv-parse')
 const axios = require('axios')
+const bcrypt = require('bcryptjs')
 const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
@@ -52,14 +53,16 @@ async function main() {
     return obj2
   })
 
+  const password = await bcrypt.hash('password', 10)
   // initial user
   const user = {
     _typeName: 'User',
-    id: '1',
+    id: '100',
     name: 'Benjamin',
     email: 'ben@gmail.com',
-    password: 'password',
+    password: password,
     image: userImage,
+    role: 'USER',
     createdAt: date
   }
   // add user to nodes
@@ -68,20 +71,21 @@ async function main() {
   // relate each post to the user
   const relations = parsed.map((el, index) => {
     if (index === 0) return
-    const obj3 = { _typeName: 'User', id: '1', fieldName: 'posts' }
+    const obj3 = { _typeName: 'User', id: '100', fieldName: 'posts' }
     const obj4 = { _typeName: 'Post', id: index.toString(), fieldName: 'user' }
     return [obj3, obj4]
   })
 
   // only needs to be defined once
-  const obj5 = { _typeName: 'User', id: '1', fieldName: 'reviews' }
+  const obj5 = { _typeName: 'User', id: '100', fieldName: 'reviews' }
 
   // create a review for each post
   // has random rating between 1 and 5
   for (let i = 1; i < parsed.length; i++) {
+    const reviewId = (i * 200).toString()
     const review = {
       _typeName: 'Review',
-      id: i.toString(),
+      id: reviewId,
       rating: Math.ceil(Math.random() * 5),
       text: reviewText,
       createdAt: date
@@ -91,9 +95,9 @@ async function main() {
     // relate each review to our user
     // relate each review to its own post
     // add to relations
-    const obj6 = { _typeName: 'Review', id: i.toString(), fieldName: 'user' }
+    const obj6 = { _typeName: 'Review', id: reviewId, fieldName: 'user' }
     const obj7 = { _typeName: 'Post', id: i.toString(), fieldName: 'reviews' }
-    const obj8 = { _typeName: 'Review', id: i.toString(), fieldName: 'post' }
+    const obj8 = { _typeName: 'Review', id: reviewId, fieldName: 'post' }
     const arr1 = [obj5, obj6]
     const arr2 = [obj7, obj8]
     relations.push(arr1)
@@ -114,7 +118,7 @@ async function main() {
   } catch (error) {
     console.log(error)
   } finally {
-    console.log(' 🌱‍ Prisma seed planted 🌱')
+    console.log('🌱‍  Prisma seed planted 🌱')
   }
 }
 
