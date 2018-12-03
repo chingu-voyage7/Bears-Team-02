@@ -1,5 +1,9 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.graphql
+secret: ${env:PRISMA_SERVICE_SECRET}
+
+seed:
+  run: node seed/index.js
 
 generate:
   - generator: javascript-client

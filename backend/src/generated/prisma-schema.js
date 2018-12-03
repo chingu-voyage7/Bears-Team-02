@@ -26,7 +26,7 @@ scalar DateTime
 
 enum Difficulty {
   EASY
-  INTERMEDIATE
+  MID
   HARD
   EXPERT
 }
@@ -34,14 +34,14 @@ enum Difficulty {
 enum Language {
   JAVASCRIPT
   PYTHON
-  CPLUSPLUS
-}
-
-enum Library {
-  NATIVE
-  REACT
-  GRAPHQL
-  NEXT
+  CSHARP
+  CSS
+  CLI
+  LINUX
+  AWS
+  GIT
+  JAVA
+  MARKDOWN
 }
 
 scalar Long
@@ -86,8 +86,8 @@ type PageInfo {
 
 type Post {
   id: ID!
-  langauge: Language!
-  library: [Library!]!
+  language: Language!
+  tags: [String!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -108,8 +108,8 @@ type PostConnection {
 }
 
 input PostCreateInput {
-  langauge: Language!
-  library: PostCreatelibraryInput
+  language: Language!
+  tags: PostCreatetagsInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -122,10 +122,6 @@ input PostCreateInput {
   user: UserCreateOneWithoutPostsInput!
 }
 
-input PostCreatelibraryInput {
-  set: [Library!]
-}
-
 input PostCreateManyWithoutUserInput {
   create: [PostCreateWithoutUserInput!]
   connect: [PostWhereUniqueInput!]
@@ -136,9 +132,13 @@ input PostCreateOneWithoutReviewsInput {
   connect: PostWhereUniqueInput
 }
 
+input PostCreatetagsInput {
+  set: [String!]
+}
+
 input PostCreateWithoutReviewsInput {
-  langauge: Language!
-  library: PostCreatelibraryInput
+  language: Language!
+  tags: PostCreatetagsInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -151,8 +151,8 @@ input PostCreateWithoutReviewsInput {
 }
 
 input PostCreateWithoutUserInput {
-  langauge: Language!
-  library: PostCreatelibraryInput
+  language: Language!
+  tags: PostCreatetagsInput
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -172,8 +172,8 @@ type PostEdge {
 enum PostOrderByInput {
   id_ASC
   id_DESC
-  langauge_ASC
-  langauge_DESC
+  language_ASC
+  language_DESC
   contentType_ASC
   contentType_DESC
   difficulty_ASC
@@ -198,8 +198,8 @@ enum PostOrderByInput {
 
 type PostPreviousValues {
   id: ID!
-  langauge: Language!
-  library: [Library!]!
+  language: Language!
+  tags: [String!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -230,8 +230,8 @@ input PostSubscriptionWhereInput {
 }
 
 input PostUpdateInput {
-  langauge: Language
-  library: PostUpdatelibraryInput
+  language: Language
+  tags: PostUpdatetagsInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -244,13 +244,9 @@ input PostUpdateInput {
   user: UserUpdateOneRequiredWithoutPostsInput
 }
 
-input PostUpdatelibraryInput {
-  set: [Library!]
-}
-
 input PostUpdateManyMutationInput {
-  langauge: Language
-  library: PostUpdatelibraryInput
+  language: Language
+  tags: PostUpdatetagsInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -277,9 +273,13 @@ input PostUpdateOneRequiredWithoutReviewsInput {
   connect: PostWhereUniqueInput
 }
 
+input PostUpdatetagsInput {
+  set: [String!]
+}
+
 input PostUpdateWithoutReviewsDataInput {
-  langauge: Language
-  library: PostUpdatelibraryInput
+  language: Language
+  tags: PostUpdatetagsInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -292,8 +292,8 @@ input PostUpdateWithoutReviewsDataInput {
 }
 
 input PostUpdateWithoutUserDataInput {
-  langauge: Language
-  library: PostUpdatelibraryInput
+  language: Language
+  tags: PostUpdatetagsInput
   contentType: ContentType
   difficulty: Difficulty
   title: String
@@ -336,10 +336,10 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  langauge: Language
-  langauge_not: Language
-  langauge_in: [Language!]
-  langauge_not_in: [Language!]
+  language: Language
+  language_not: Language
+  language_in: [Language!]
+  language_not_in: [Language!]
   contentType: ContentType
   contentType_not: ContentType
   contentType_in: [ContentType!]

@@ -12,8 +12,8 @@ type User {
 
 type Post {
   id: ID! @unique
-  langauge: Language!
-  library: [Library!]!
+  language: Language!
+  tags: [String!]!
   contentType: ContentType!
   difficulty: Difficulty!
   title: String!
@@ -40,14 +40,14 @@ type Review {
 enum Language {
   JAVASCRIPT
   PYTHON
-  CPLUSPLUS
-}
-
-enum Library {
-  NATIVE
-  REACT
-  GRAPHQL
-  NEXT
+  CSHARP
+  CSS
+  CLI
+  LINUX
+  AWS
+  GIT
+  JAVA
+  MARKDOWN
 }
 
 # general categories of content
@@ -61,7 +61,7 @@ enum ContentType {
 # difficulty level of content
 enum Difficulty {
   EASY
-  INTERMEDIATE
+  MID
   HARD
   EXPERT
 }

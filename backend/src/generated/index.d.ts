@@ -200,8 +200,8 @@ export type ReviewOrderByInput =
 export type PostOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "langauge_ASC"
-  | "langauge_DESC"
+  | "language_ASC"
+  | "language_DESC"
   | "contentType_ASC"
   | "contentType_DESC"
   | "difficulty_ASC"
@@ -225,6 +225,10 @@ export type PostOrderByInput =
 
 export type PriceRange = "FREE" | "LOW" | "MID" | "HIGH";
 
+export type Difficulty = "EASY" | "MID" | "HARD" | "EXPERT";
+
+export type ContentType = "DOCUMENTATION" | "TUTORIAL" | "BOOK" | "ARTICLE";
+
 export type UserOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -243,20 +247,23 @@ export type UserOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type Difficulty = "EASY" | "INTERMEDIATE" | "HARD" | "EXPERT";
-
-export type ContentType = "DOCUMENTATION" | "TUTORIAL" | "BOOK" | "ARTICLE";
-
-export type Library = "NATIVE" | "REACT" | "GRAPHQL" | "NEXT";
-
-export type Language = "JAVASCRIPT" | "PYTHON" | "CPLUSPLUS";
+export type Language =
+  | "JAVASCRIPT"
+  | "PYTHON"
+  | "CSHARP"
+  | "CSS"
+  | "CLI"
+  | "LINUX"
+  | "AWS"
+  | "GIT"
+  | "JAVA"
+  | "MARKDOWN";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface ReviewCreateWithoutUserInput {
-  rating: Int;
-  text?: String;
-  post: PostCreateOneWithoutReviewsInput;
+export interface PostCreateOneWithoutReviewsInput {
+  create?: PostCreateWithoutReviewsInput;
+  connect?: PostWhereUniqueInput;
 }
 
 export type PostWhereUniqueInput = AtLeastOne<{
@@ -383,8 +390,8 @@ export interface ReviewUpdateWithWhereUniqueWithoutUserInput {
 }
 
 export interface PostCreateWithoutUserInput {
-  langauge: Language;
-  library?: PostCreatelibraryInput;
+  language: Language;
+  tags?: PostCreatetagsInput;
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -453,11 +460,10 @@ export interface UserUpdateInput {
   reviews?: ReviewUpdateManyWithoutUserInput;
 }
 
-export interface PostUpdateOneRequiredWithoutReviewsInput {
-  create?: PostCreateWithoutReviewsInput;
-  update?: PostUpdateWithoutReviewsDataInput;
-  upsert?: PostUpsertWithoutReviewsInput;
-  connect?: PostWhereUniqueInput;
+export interface ReviewCreateWithoutUserInput {
+  rating: Int;
+  text?: String;
+  post: PostCreateOneWithoutReviewsInput;
 }
 
 export interface ReviewUpdateManyMutationInput {
@@ -465,8 +471,10 @@ export interface ReviewUpdateManyMutationInput {
   text?: String;
 }
 
-export interface PostCreateOneWithoutReviewsInput {
+export interface PostUpdateOneRequiredWithoutReviewsInput {
   create?: PostCreateWithoutReviewsInput;
+  update?: PostUpdateWithoutReviewsDataInput;
+  upsert?: PostUpsertWithoutReviewsInput;
   connect?: PostWhereUniqueInput;
 }
 
@@ -478,8 +486,8 @@ export interface ReviewUpdateInput {
 }
 
 export interface PostCreateWithoutReviewsInput {
-  langauge: Language;
-  library?: PostCreatelibraryInput;
+  language: Language;
+  tags?: PostCreatetagsInput;
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -492,8 +500,8 @@ export interface PostCreateWithoutReviewsInput {
 }
 
 export interface PostUpdateManyMutationInput {
-  langauge?: Language;
-  library?: PostUpdatelibraryInput;
+  language?: Language;
+  tags?: PostUpdatetagsInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -505,8 +513,8 @@ export interface PostUpdateManyMutationInput {
 }
 
 export interface PostUpdateInput {
-  langauge?: Language;
-  library?: PostUpdatelibraryInput;
+  language?: Language;
+  tags?: PostUpdatetagsInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -524,8 +532,8 @@ export interface UserUpsertWithoutPostsInput {
   create: UserCreateWithoutPostsInput;
 }
 
-export interface PostUpdatelibraryInput {
-  set?: Library[] | Library;
+export interface PostUpdatetagsInput {
+  set?: String[] | String;
 }
 
 export interface PostUpsertWithoutReviewsInput {
@@ -546,8 +554,8 @@ export interface ReviewUpdateManyWithoutPostInput {
     | ReviewUpsertWithWhereUniqueWithoutPostInput;
 }
 
-export interface PostCreatelibraryInput {
-  set?: Library[] | Library;
+export interface PostCreatetagsInput {
+  set?: String[] | String;
 }
 
 export interface PostWhereInput {
@@ -565,10 +573,10 @@ export interface PostWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  langauge?: Language;
-  langauge_not?: Language;
-  langauge_in?: Language[] | Language;
-  langauge_not_in?: Language[] | Language;
+  language?: Language;
+  language_not?: Language;
+  language_in?: Language[] | Language;
+  language_not_in?: Language[] | Language;
   contentType?: ContentType;
   contentType_not?: ContentType;
   contentType_in?: ContentType[] | ContentType;
@@ -799,8 +807,8 @@ export interface ReviewUpsertWithWhereUniqueWithoutUserInput {
 }
 
 export interface PostUpdateWithoutUserDataInput {
-  langauge?: Language;
-  library?: PostUpdatelibraryInput;
+  language?: Language;
+  tags?: PostUpdatetagsInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -813,8 +821,8 @@ export interface PostUpdateWithoutUserDataInput {
 }
 
 export interface PostCreateInput {
-  langauge: Language;
-  library?: PostCreatelibraryInput;
+  language: Language;
+  tags?: PostCreatetagsInput;
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -907,8 +915,8 @@ export interface ReviewCreateManyWithoutPostInput {
 }
 
 export interface PostUpdateWithoutReviewsDataInput {
-  langauge?: Language;
-  library?: PostUpdatelibraryInput;
+  language?: Language;
+  tags?: PostUpdatetagsInput;
   contentType?: ContentType;
   difficulty?: Difficulty;
   title?: String;
@@ -1233,8 +1241,8 @@ export interface ReviewEdgeSubscription
 
 export interface PostPreviousValues {
   id: ID_Output;
-  langauge: Language;
-  library: Library[];
+  language: Language;
+  tags: String[];
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -1250,8 +1258,8 @@ export interface PostPreviousValuesPromise
   extends Promise<PostPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  langauge: () => Promise<Language>;
-  library: () => Promise<Library[]>;
+  language: () => Promise<Language>;
+  tags: () => Promise<String[]>;
   contentType: () => Promise<ContentType>;
   difficulty: () => Promise<Difficulty>;
   title: () => Promise<String>;
@@ -1267,8 +1275,8 @@ export interface PostPreviousValuesSubscription
   extends Promise<AsyncIterator<PostPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  langauge: () => Promise<AsyncIterator<Language>>;
-  library: () => Promise<AsyncIterator<Library[]>>;
+  language: () => Promise<AsyncIterator<Language>>;
+  tags: () => Promise<AsyncIterator<String[]>>;
   contentType: () => Promise<AsyncIterator<ContentType>>;
   difficulty: () => Promise<AsyncIterator<Difficulty>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -1305,8 +1313,8 @@ export interface PostSubscriptionPayloadSubscription
 
 export interface Post {
   id: ID_Output;
-  langauge: Language;
-  library: Library[];
+  language: Language;
+  tags: String[];
   contentType: ContentType;
   difficulty: Difficulty;
   title: String;
@@ -1320,8 +1328,8 @@ export interface Post {
 
 export interface PostPromise extends Promise<Post>, Fragmentable {
   id: () => Promise<ID_Output>;
-  langauge: () => Promise<Language>;
-  library: () => Promise<Library[]>;
+  language: () => Promise<Language>;
+  tags: () => Promise<String[]>;
   contentType: () => Promise<ContentType>;
   difficulty: () => Promise<Difficulty>;
   title: () => Promise<String>;
@@ -1349,8 +1357,8 @@ export interface PostSubscription
   extends Promise<AsyncIterator<Post>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  langauge: () => Promise<AsyncIterator<Language>>;
-  library: () => Promise<AsyncIterator<Library[]>>;
+  language: () => Promise<AsyncIterator<Language>>;
+  tags: () => Promise<AsyncIterator<String[]>>;
   contentType: () => Promise<AsyncIterator<ContentType>>;
   difficulty: () => Promise<AsyncIterator<Difficulty>>;
   title: () => Promise<AsyncIterator<String>>;
@@ -1517,10 +1525,6 @@ export const models = [
   },
   {
     name: "Language",
-    embedded: false
-  },
-  {
-    name: "Library",
     embedded: false
   },
   {
