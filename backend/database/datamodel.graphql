@@ -5,6 +5,7 @@ type User {
   image: String
   password: String
   oauthId: String
+  role: Role! @default(value: "USER")
   posts: [Post]
   reviews: [Review]
   createdAt: DateTime!
@@ -18,11 +19,11 @@ type Post {
   difficulty: Difficulty!
   title: String!
   description: String!
-  author: String
+  author: String!
   href: String!
   image: String
   price: PriceRange!
-  reviews: [Review]!
+  reviews: [Review]! @relation(name: "ReviewsAboutPost", onDelete: CASCADE)
   user: User!
   createdAt: DateTime!
 }
@@ -32,7 +33,7 @@ type Review {
   rating: Int!
   text: String
   user: User!
-  post: Post!
+  post: Post! @relation(name: "ReviewsAboutPost")
   createdAt: DateTime!
 }
 
@@ -50,7 +51,7 @@ enum Language {
   MARKDOWN
 }
 
-# general categories of content
+# type of content
 enum ContentType {
   DOCUMENTATION
   TUTORIAL
@@ -72,4 +73,10 @@ enum PriceRange {
   LOW
   MID
   HIGH
+}
+
+# permission roles
+enum Role {
+  USER
+  ADMIN
 }

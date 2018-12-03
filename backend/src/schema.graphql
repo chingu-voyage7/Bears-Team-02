@@ -1,5 +1,16 @@
 # import * from './generated/prisma.graphql'
 
+type Query {
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, first: Int): [Post]!
+}
+
+type Mutation {
+  signup(name: String!, email: String!, password: String): User
+  signin(email: String!, password: String!): User
+  signout: Payload
+  createPost(data: PostCreateInput!): Post
+}
+
 type User {
   id: ID!
   name: String!
@@ -7,6 +18,7 @@ type User {
   image: String
   password: String
   oauthId: String
+  role: Role!
   posts: [Post]
   reviews: [Review]
   createdAt: DateTime!
@@ -38,6 +50,10 @@ type Review {
   createdAt: DateTime!
 }
 
+type Payload {
+  message: String!
+}
+
 # various programming languages
 enum Language {
   JAVASCRIPT
@@ -63,7 +79,7 @@ enum ContentType {
 # difficulty level of content
 enum Difficulty {
   EASY
-  INTERMEDIATE
+  MID
   HARD
   EXPERT
 }
@@ -74,4 +90,9 @@ enum PriceRange {
   LOW
   MID
   HIGH
+}
+
+enum Role {
+  USER
+  ADMIN
 }
