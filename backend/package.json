@@ -21,8 +21,7 @@
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "graphql-import": "^0.7.1",
-    "graphql-shield": "^4.1.0",
-    "graphql-yoga": "^1.16.7",
+    "graphql-resolvers": "^0.2.2",
     "jsonwebtoken": "^8.4.0",
     "nodemon": "^1.18.7",
     "prisma-client-lib": "^1.21.1"

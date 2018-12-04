@@ -1,14 +1,6 @@
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-
-function createCookie(ctx, userId) {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET)
-  ctx.res.cookie(process.env.COOKIE, token, {
-    httpOnly: false,
-    path: 'graphql',
-    maxAge: 1000 * 60 * 60 * 24 * 365
-  })
-}
+const { combineResolvers } = require('graphql-resolvers')
+const { isAdmin, isAuthenticated, createCookie } = require('./permissions')
 
 module.exports = {
   signup: async (_, args, ctx, info) => {
@@ -41,7 +33,16 @@ module.exports = {
   },
 
   createPost: async (_, args, ctx, info) => {
-    const post = await ctx.prisma.createPost({ ...args.data })
+    const post = await ctx.prisma.createPost({
+      ...args.data,
+      user: { connect: { id: ctx.userId } }
+    })
     return post
   }
+
+  // example of permission system
+  // createPost: combineResolvers(isAdmin, async (_, args, ctx, info) => {
+  //   const post = await ctx.prisma.createPost({ ...args.data, user: { connect: { id: ctx.userId } } })
+  //   return post
+  // })
 }

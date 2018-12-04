@@ -24,5 +24,11 @@ module.exports = `
         image
       }
     }
+    user {
+      id
+      name
+      email
+      image
+    }
   }
 `
