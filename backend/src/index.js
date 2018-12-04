@@ -19,15 +19,17 @@ app.use(addUserToRequest)
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => {
+  context: ({ req, res }) => {
     return {
-      ...req,
-      prisma
+      user: req.user,
+      userId: req.userId,
+      prisma,
+      res
     }
   },
   cors: {
     origin: process.env.FRONTEND_DEV,
-    credentials: true
+    credentials: 'include'
   },
   debug: process.env.DEBUG
 })
