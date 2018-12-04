@@ -3,15 +3,15 @@ const jwt = require('jsonwebtoken')
 
 function createCookie(ctx, userId) {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET)
-  ctx.response.cookie(process.env.COOKIE, token, {
-    httpOnly: true,
+  ctx.res.cookie(process.env.COOKIE, token, {
+    httpOnly: false,
+    path: 'graphql',
     maxAge: 1000 * 60 * 60 * 24 * 365
   })
 }
 
 module.exports = {
   signup: async (_, args, ctx, info) => {
-    //! can validate input here or on front end
     const password = await bcrypt.hash(args.password, 10)
     const user = await ctx.prisma.createUser({
       name: args.name,
@@ -36,7 +36,7 @@ module.exports = {
   },
 
   signout: async (_, args, ctx, info) => {
-    ctx.response.clearCookie(process.env.COOKIE)
+    ctx.res.clearCookie(process.env.COOKIE)
     return { message: 'User signed out' }
   },
 
