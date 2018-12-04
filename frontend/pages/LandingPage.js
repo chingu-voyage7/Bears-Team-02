@@ -1,6 +1,5 @@
 import * as React from 'react';
 import TestComponent from '../components/TestComponent'
-// import '../styles/main.scss'
 
 class LandingPage extends React.Component {
     /* we need to set up a store */
