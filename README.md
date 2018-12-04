@@ -25,7 +25,24 @@ The Source is a tutorial search service powered by crowd-sourced ratings and rev
  - API Documentation
 
 ## Scripts
-⚠️
+```bash
+npm run dev
+```
+Starts the React app in __development__ mode at `http://localhost:8282`\
+- supports hot code reloading
+- automatic transpilation and bundling
+- server rendering and indexing of `./pages`
+
+```bash
+npm build
+npm start
+```
+`npm build` builds a production ready version of the React app. `npm start` will start the built app.
+
+```bash
+npm test
+```
+Starts the Jest / Enzyme testing suite
 
 ## Environment Variables
 
@@ -62,12 +79,21 @@ The Source is a tutorial search service powered by crowd-sourced ratings and rev
 
 |Pkgs|Use|Description|Link|
 |----|---|-----------|----|
-|⚠️||||
-
-
-## API Documentation
-
-⚠️
+|`jest`|testing|JavaScript Testing|[docs](https://jestjs.io/)|
+|`babel-jest`|testing|Jest plugin to use babel for transformation|[github](https://github.com/facebook/jest#readme)|
+|`enzyme`|testing|JavaScript Testing utilities for React|[docs](https://airbnb.io/enzyme/)|
+|`enzyme-adapter-react-16`|testing|Enzyme adapter for React|[docs](https://airbnb.io/enzyme/)|
+|`eslint`|linter|An AST-based pattern checker for JavaScript|[docs](https://eslint.org/)|
+|`eslint-plugin-jest`|linter|ESLint rules for Jest|[github](https://github.com/jest-community/eslint-plugin-jest#readme)|
+|`eslint-plugin-prettier`|linter|Runs prettier as an eslint rule|[github](https://github.com/prettier/eslint-plugin-prettier#readme)|
+|`eslint-config-airbnb-base`|linter|Airbnb's ESLint config|[github](https://github.com/airbnb/javascript)|
+|`eslint-plugin-import`|linter|Supports linting of ES6 import/export syntax|[github](https://github.com/benmosher/eslint-plugin-import)|
+|`eslint-plugin-jsx-a11y`|linter|Static AST checker for accessibility rules on JSX elements|[github](https://github.com/evcohen/eslint-plugin-jsx-a11y#readme)|
+|`eslint-plugin-react`|linter|React specific linting rules for ESLin|[github](https://github.com/yannickcr/eslint-plugin-react)|
+|`babel-eslint`|linter|Custom parser for ESLint|[github](https://github.com/babel/babel-eslint)|
+|`husky`|development|Pre-`git commit` linting hooks|[docs](https://github.com/typicode/husky/blob/master/DOCS.md)|
+|`lint-staged`|development|Lint files staged by git|[github](https://github.com/okonet/lint-staged#readme)|
+|`prettier`|development|Opinionated code formatter|[docs](https://prettier.io/)|
 
 ***
 
