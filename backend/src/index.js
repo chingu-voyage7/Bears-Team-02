@@ -1,21 +1,39 @@
 require('dotenv').config()
-const server = require('./createServer')()
+const express = require('express')
+const { ApolloServer } = require('apollo-server-express')
+const { importSchema } = require('graphql-import')
 const cookieParser = require('cookie-parser')
+const { prisma } = require('./generated')
+const resolvers = require('./resolvers')
 const isUserSignedIn = require('./middleware/isUserSignedIn')
 const addUserToRequest = require('./middleware/addUserToRequest')
 
-server.express.use(cookieParser())
-server.express.use(isUserSignedIn)
-server.express.use(addUserToRequest)
+const path = '/graphql'
+const typeDefs = importSchema('./src/schema.graphql')
 
-server.start(
-  {
-    port: process.env.PORT,
-    cors: {
-      origin: process.env.FRONTEND_DEV,
-      credentials: true
-    },
-    debug: process.env.DEBUG
+const app = express()
+app.use(cookieParser())
+app.use(isUserSignedIn)
+app.use(addUserToRequest)
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => {
+    return {
+      ...req,
+      prisma
+    }
   },
-  ({ port }) => console.log(`🧘 Graphql Yoga Server Port:${port}`)
+  cors: {
+    origin: process.env.FRONTEND_DEV,
+    credentials: true
+  },
+  debug: process.env.DEBUG
+})
+
+server.applyMiddleware({ app, path })
+
+app.listen({ port: process.env.PORT }, () =>
+  console.log(`Apollo Server > > > http://localhost:${process.env.PORT}${server.graphqlPath} < < <`)
 )

@@ -4,12 +4,12 @@ const { rule, shield, and, or, not } = require('graphql-shield')
 
 // USER role
 const isAuthenticated = rule()(async (parent, args, ctx, info) => {
-  return !!ctx.request.user
+  return !!ctx.req.user
 })
 
 // ADMIN role
 const isAdmin = rule()(async (parent, args, ctx, info) => {
-  return ctx.request.user.role === 'ADMIN'
+  return ctx.req.user.role === 'ADMIN'
 })
 
 // map each resolver to combination of roles
