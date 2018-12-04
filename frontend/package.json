@@ -80,11 +80,38 @@
       }
     }
   },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb-base",
+    "plugins": ["react", "jest", "jsx-a11y", "import"],
+    "env": {
+      "jest/globals": true
+    },
+    "rules": {
+      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+      "react/jsx-uses-vars": 2,
+      "no-unused-vars": 0,
+      "react/jsx-one-expression-per-line": 0,
+      "react/destructuring-assignment": 0,
+      "arrow-parens": 0,
+      "implicit-arrow-linebreak": 0,
+      "object-curly-newline": 0,
+      "semi-style": 0,
+      "semi": 0
+    }
+  },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
     "testPathIgnorePatterns": [
       "<rootDir>/.next/",
       "<rootDir>/node_modules/"
     ]
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   }
 }
