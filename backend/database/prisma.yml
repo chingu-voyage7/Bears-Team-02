@@ -3,7 +3,7 @@ datamodel: datamodel.graphql
 secret: ${env:PRISMA_SERVICE_SECRET}
 
 seed:
-  run: node database/seed.js
+  run: node database/seed3.js
 
 generate:
   - generator: javascript-client

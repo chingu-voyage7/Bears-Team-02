@@ -8,3 +8,4 @@ variables.env
 resources/
 *.csv
 .vscode
+token.json

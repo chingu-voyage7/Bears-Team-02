@@ -6,9 +6,9 @@ const fs = require('fs')
 const path = require('path')
 const { promisify } = require('util')
 
+// promisify functions to use async await
 const readFile = promisify(fs.readFile)
 const parseAsync = promisify(parse)
-
 const filepath = path.join(__dirname, 'data.csv')
 const date = new Date().toISOString()
 const userImage = 'https://s3-us-west-1.amazonaws.com/simple-blogger-react/avatar-100x100.png'
@@ -136,5 +136,4 @@ async function sendData(data) {
   })
 }
 
-// fires seed function
-main()
+module.exports = main
