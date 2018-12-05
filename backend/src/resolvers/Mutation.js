@@ -3,10 +3,8 @@ const { combineResolvers } = require('graphql-resolvers')
 const { isAdmin, isAuthenticated, createCookie, signToken } = require('./permissions')
 
 const createPost = async (_, args, ctx, info) => {
-  const data = args.data
-  data.user = { connect: { id: ctx.userId } }
-  const post = await ctx.prisma.createPost({ ...data })
-  return post
+  const data = Object.assign({}, args.data, { user: { connect: { id: ctx.userId } } })
+  return await ctx.prisma.createPost({ ...data })
 }
 
 module.exports = {
@@ -41,5 +39,10 @@ module.exports = {
 
   createPost,
 
-  isAdminCreatePost: combineResolvers(isAdmin, createPost)
+  isAdminCreatePost: combineResolvers(isAdmin, createPost),
+
+  createReview: combineResolvers(isAuthenticated, async (_, args, ctx, info) => {
+    const data = Object.assign({}, args.data, { user: { connect: { id: ctx.userId } } })
+    return await ctx.prisma.createReview({ ...data })
+  })
 }

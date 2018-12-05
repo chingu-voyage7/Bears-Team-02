@@ -3,12 +3,18 @@ const jwt = require('jsonwebtoken')
 const permissions = ['USER', 'ADMIN']
 
 const isAuthenticated = (root, args, ctx, info) => {
+  if (!ctx.userId) {
+    return new Error('🛡 Not Authorized. You must be signed in. 🛡')
+  }
   if (!permissions.includes(ctx.user.role)) {
     return new Error('🛡 Not Authorized. You must be signed in. 🛡')
   }
 }
 
 const isAdmin = (root, args, ctx, info) => {
+  if (!ctx.userId) {
+    return new Error('🛡 Not Authorized. You must be signed in. 🛡')
+  }
   if (ctx.user.role !== 'ADMIN') {
     return new Error('🛡 Not Authorized. You must be ADMIN. 🛡')
   }

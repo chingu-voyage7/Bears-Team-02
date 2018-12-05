@@ -1,15 +1,19 @@
 # import * from './generated/prisma.graphql'
 
 type Query {
+  me: User
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, first: Int): [Post]!
+  postsCount(where: PostWhereInput): Count
+  post(id: ID!): Post
 }
 
 type Mutation {
   signup(name: String!, email: String!, password: String): User
   signin(email: String!, password: String!): User
   signout: Payload
-  createPost(data: PostCreateInput!): Post
-  isAdminCreatePost(data: PostCreateInput!): Post
+  createPost(data: PostCreateWithoutUserInput!): Post
+  isAdminCreatePost(data: PostCreateWithoutUserInput!): Post
+  createReview(data: ReviewCreateWithoutUserInput!): Review
 }
 
 type User {
@@ -53,6 +57,10 @@ type Review {
 
 type Payload {
   message: String!
+}
+
+type Count {
+  count: Int
 }
 
 # various programming languages
