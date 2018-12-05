@@ -1,17 +1,19 @@
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20')
 const { prisma } = require('../generated')
-const jwt = require('jsonwebtoken')
 const uuid = require('uuid/v4')
 const bcrypt = require('bcryptjs')
+const { signToken, createCookie } = require('../resolvers/permissions')
 
 let token
+const frontend = process.env.NODE_ENV === 'development' ? process.env.FRONTEND_DEV : ''
+const backend = process.env.NODE_ENV === 'development' ? process.env.BACKEND_DEV : ''
 
 const googleOauth = new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_ID,
     clientSecret: process.env.GOOGLE_SECRET,
-    callbackURL: `http://localhost:7272/google/callback`,
+    callbackURL: `${backend}/google/callback`,
     passRequestToCallback: true
   },
   async (request, accessToken, refreshToken, profile, done) => {
@@ -35,12 +37,12 @@ const googleOauth = new GoogleStrategy(
         role: 'USER'
       })
       // 5. Generate new token
-      token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET)
+      token = signToken(newUser.id)
       // 6. Call done
       return done(null, {})
     } else {
       // 7. Refresh token for existing user
-      token = jwt.sign({ userId: users[0].id }, process.env.JWT_SECRET)
+      token = signToken(users[0].id)
       return done(null, {})
     }
   }
@@ -54,17 +56,14 @@ const googleScope = passport.authenticate('google', {
 })
 
 const googleCallback = passport.authenticate('google', {
-  failureRedirect: process.env.FRONTEND_DEV,
+  failureRedirect: frontend,
   session: false
 })
 
 // Generate cookie on success redirect
 const googleRedirect = (req, res) => {
-  res.cookie(process.env.COOKIE, token, {
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365
-  })
-  res.redirect(process.env.FRONTEND_DEV)
+  createCookie(res, token)
+  res.redirect(frontend)
 }
 
 module.exports = {

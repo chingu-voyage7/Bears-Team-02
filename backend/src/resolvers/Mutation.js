@@ -1,6 +1,13 @@
 const bcrypt = require('bcryptjs')
 const { combineResolvers } = require('graphql-resolvers')
-const { isAdmin, isAuthenticated, createCookie } = require('./permissions')
+const { isAdmin, isAuthenticated, createCookie, signToken } = require('./permissions')
+
+const createPost = async (_, args, ctx, info) => {
+  const data = args.data
+  data.user = { connect: { id: ctx.userId } }
+  const post = await ctx.prisma.createPost({ ...data })
+  return post
+}
 
 module.exports = {
   signup: async (_, args, ctx, info) => {
@@ -10,7 +17,7 @@ module.exports = {
       email: args.email.toLowerCase(),
       password
     })
-    createCookie(ctx, user.id)
+    createCookie(ctx.res, signToken(user.id))
     return user
   },
 
@@ -23,7 +30,7 @@ module.exports = {
     if (!isValid) {
       throw new Error('Password is not valid')
     }
-    createCookie(ctx, user.id)
+    createCookie(ctx.res, signToken(user.id))
     return user
   },
 
@@ -32,17 +39,7 @@ module.exports = {
     return { message: 'User signed out' }
   },
 
-  createPost: async (_, args, ctx, info) => {
-    const post = await ctx.prisma.createPost({
-      ...args.data,
-      user: { connect: { id: ctx.userId } }
-    })
-    return post
-  }
+  createPost,
 
-  // example of permission system
-  // createPost: combineResolvers(isAdmin, async (_, args, ctx, info) => {
-  //   const post = await ctx.prisma.createPost({ ...args.data, user: { connect: { id: ctx.userId } } })
-  //   return post
-  // })
+  isAdminCreatePost: combineResolvers(isAdmin, createPost)
 }

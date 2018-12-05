@@ -9,6 +9,7 @@ type Mutation {
   signin(email: String!, password: String!): User
   signout: Payload
   createPost(data: PostCreateInput!): Post
+  isAdminCreatePost(data: PostCreateInput!): Post
 }
 
 type User {
