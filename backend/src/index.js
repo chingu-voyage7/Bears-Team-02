@@ -12,6 +12,10 @@ const { googleOauth, googleCallback, googleRedirect, googleScope } = require('./
 
 const path = '/graphql'
 const typeDefs = importSchema('./src/schema.graphql')
+const cors = {
+  origin: process.env.FRONTEND_DEV,
+  credentials: true
+}
 
 const app = express()
 app.use(cookieParser())
@@ -26,22 +30,16 @@ app.get('/google/callback', googleCallback, googleRedirect)
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req, res }) => {
-    return {
-      user: req.user,
-      userId: req.userId,
-      prisma,
-      res
-    }
-  },
-  cors: {
-    origin: process.env.FRONTEND_DEV,
-    credentials: 'include'
-  },
+  context: ({ req, res }) => ({
+    user: req.user,
+    userId: req.userId,
+    prisma,
+    res
+  }),
   debug: process.env.DEBUG
 })
 
-server.applyMiddleware({ app, path })
+server.applyMiddleware({ app, path, server, cors })
 
 app.listen({ port: process.env.PORT }, () =>
   console.log(`🚀  Apollo Server up at http://localhost:${process.env.PORT}${server.graphqlPath}`)

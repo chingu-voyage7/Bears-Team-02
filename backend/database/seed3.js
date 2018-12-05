@@ -1,3 +1,1 @@
-const seedWithCSV = require('./seed1')
-
-seedWithCSV()
+require('./seed1')()

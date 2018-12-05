@@ -52,26 +52,40 @@ Starts the Jest / Enzyme testing suite
 
 ## Environment Variables
 
-| Key | Description |
-| --- | ----------- |
-| ⚠️  |             |
+| Key                     | Description                                                    |
+| ----------------------- | -------------------------------------------------------------- |
+| `BACKEND_DEV`           | Backend host and port in development - `http://localhost:7272` |
+| `COOKIE`                | Name of cookie containing JWT                                  |
+| `DEBUG`                 | Toggle extra Apollo Server console logs                        |
+| `FRONTEND_DEV`          | Frontend host and port in development                          |
+| `GOOGLE_ID`             | Client ID Google Plus OAuth                                    |
+| `GOOGLE_SECRET`         | Client Secret Google Plus OAuth                                |
+| `JWT_SECRET`            | Used in creation of Json Web Token                             |
+| `PRISMA_ENDPOINT`       | Prisma database url                                            |
+| `PRISMA_SERVICE_SECRET` | Required to access Prisma database                             |
+| `PRISMA_TOKEN`          | Sent with seed request to Prisma                               |
+| `PORT`                  | Backend Server port                                            |
 
 ## Tech Stack
 
 ### Backend Dependencies (production)
 
-| Pkgs                | Use | Description                                              | Link                                                   |
-| ------------------- | --- | -------------------------------------------------------- | ------------------------------------------------------ |
-| `axios`             |     | Promise based HTTP client for the browser and JavaScript | [github](https://github.com/axios/axios)               |
-| `bcryptjs`          |     | Library to help hash passwords                           | [github](https://github.com/dcodeIO/bcrypt.js)         |
-| `cookie-parser`     |     | Parse `Cookie` header and populate `req.cookies`         | [github](https://github.com/expressjs/cookie-parser)   |
-| `csv-parse`         |     | Parser to convert CSV text into arrays or objects        | [docs](https://csv.js.org/parse/)                      |
-| `dotenv`            |     | Loads variables from `.env` files into `process.env`     | [github](https://github.com/motdotla/dotenv)           |
-| `graphql-shield`    |     | A GraphQL tool to ease the creation of permission layer  | [github](https://github.com/maticzav/graphql-shield)   |
-| `graphql-yoga`      |     | Fully featured GraphQL Server                            | [github](https://github.com/prisma/graphql-yoga)       |
-| `jsonwebtoken`      |     | An implementation of JSON Web Tokens                     | [github](https://github.com/auth0/node-jsonwebtoken)   |
-| `nodemon`           |     | Monitors changes and reloads node automatically          | [docs](https://nodemon.io/)                            |
-| `prisma-client-lib` |     | Everything needed to run Prisma Client with JavaScript   | [docs](https://www.prisma.io/client/client-javascript) |
+| Pkgs                      | Use | Description                                              | Link                                                            |
+| ------------------------- | --- | -------------------------------------------------------- | --------------------------------------------------------------- |
+| `apollo-server-express`   |     | A GraphQL Server for Express                             | [docs](https://www.apollographql.com/docs/apollo-server/)       |
+| `axios`                   |     | Promise based HTTP client for the browser and JavaScript | [github](https://github.com/axios/axios)                        |
+| `bcryptjs`                |     | Library to help hash passwords                           | [github](https://github.com/dcodeIO/bcrypt.js)                  |
+| `cookie-parser`           |     | Parse `Cookie` header and populate `req.cookies`         | [github](https://github.com/expressjs/cookie-parser)            |
+| `csv-parse`               |     | Parser to convert CSV text into arrays or objects        | [docs](https://csv.js.org/parse/)                               |
+| `dotenv`                  |     | Loads variables from `.env` files into `process.env`     | [github](https://github.com/motdotla/dotenv)                    |
+| `express`                 |     | Web framework for Node.js                                | [docs](https://expressjs.com/)                                  |
+| `graphql-import`          |     | Converts `.graphql` file into typeDef string             | [docs](https://oss.prisma.io/content/graphql-import/overview)   |
+| `graphql-resolvers`       |     | Resolver composition library                             | [github](https://github.com/lucasconstantino/graphql-resolvers) |
+| `jsonwebtoken`            |     | An implementation of JSON Web Tokens                     | [github](https://github.com/auth0/node-jsonwebtoken)            |
+| `nodemon`                 |     | Monitors changes and reloads node automatically          | [docs](https://nodemon.io/)                                     |
+| `passport`                |     | Simple, unobtrusive authentication for Node.js           | [docs](http://www.passportjs.org/)                              |
+| `passport-google-oauth20` |     | Google authentication for Passport                       | [github](https://github.com/jaredhanson/passport-google-oauth2) |
+| `prisma-client-lib`       |     | Everything needed to run Prisma Client with JavaScript   | [docs](https://www.prisma.io/client/client-javascript)          |
 
 ### Backend Dependencies (development)
 
