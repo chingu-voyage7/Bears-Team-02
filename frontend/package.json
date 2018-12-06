@@ -33,8 +33,13 @@
   },
   "homepage": "https://github.com/chingu-voyage7/Bears-Team-02#readme",
   "dependencies": {
+    "apollo-boost": "^0.1.22",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
     "next": "^7.0.2",
+    "next-with-apollo": "^3.3.0",
     "react": "^16.6.3",
+    "react-apollo": "^2.3.2",
     "react-dom": "^16.6.3"
   },
   "devDependencies": {
@@ -83,12 +88,22 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "extends": "airbnb-base",
-    "plugins": ["react", "jest", "jsx-a11y", "import"],
+    "plugins": [
+      "react",
+      "jest",
+      "jsx-a11y",
+      "import"
+    ],
     "env": {
       "jest/globals": true
     },
     "rules": {
-      "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "devDependencies": true
+        }
+      ],
       "react/jsx-uses-vars": 2,
       "no-unused-vars": 0,
       "react/jsx-one-expression-per-line": 0,
