@@ -6,6 +6,10 @@ const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
     signin(email: $email, password: $password) {
       id
+      name
+      email
+      role
+      image
     }
   }
 `
@@ -53,6 +57,7 @@ class Signin extends Component {
                 onChange={this.saveToState}
               />
             </label>
+            <button type="submit">Login</button>
             <br />
             {data && <div>{JSON.stringify(data)}</div>}
           </form>
