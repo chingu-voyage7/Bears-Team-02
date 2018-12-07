@@ -1,4 +1,14 @@
 import React, { Component } from 'react'
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
+
+const SIGNIN_MUTATION = gql`
+  mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
+      id
+    }
+  }
+`
 
 class Signin extends Component {
   state = {
@@ -8,32 +18,46 @@ class Signin extends Component {
 
   saveToState = e => this.setState({ [e.target.name]: e.target.value })
 
+  handleSubmit = async (e, signin) => {
+    e.preventDefault()
+    await signin({ variables: { ...this.state } })
+    this.setState({ email: '', password: '' })
+    // refetch user query
+    // route to wherever we want!
+  }
+
   render() {
     return (
-      <form>
-        <h2>Sign into your account</h2>
-        <label htmlFor="email">
-          Email
-          <input
-            type="email"
-            name="email"
-            placeholder="email"
-            value={this.state.email}
-            onChange={this.saveToState}
-          />
-        </label>
+      <Mutation mutation={SIGNIN_MUTATION}>
+        {(signin, { data, loading, error }) => (
+          <form>
+            <h2>Sign into your account</h2>
+            <label htmlFor="email">
+              Email
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                value={this.state.email}
+                onChange={this.saveToState}
+              />
+            </label>
 
-        <label htmlFor="password">
-          Password
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            value={this.state.password}
-            onChange={this.saveToState}
-          />
-        </label>
-      </form>
+            <label htmlFor="password">
+              Password
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                value={this.state.password}
+                onChange={this.saveToState}
+              />
+            </label>
+            <br />
+            {data && <div>{JSON.stringify(data)}</div>}
+          </form>
+        )}
+      </Mutation>
     )
   }
 }
