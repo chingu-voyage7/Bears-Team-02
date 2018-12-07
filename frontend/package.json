@@ -33,11 +33,13 @@
   },
   "homepage": "https://github.com/chingu-voyage7/Bears-Team-02#readme",
   "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.1.22",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "next": "^7.0.2",
     "next-with-apollo": "^3.3.0",
+    "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
     "react-dom": "^16.6.3"
