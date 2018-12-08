@@ -31,7 +31,7 @@ The Source is a tutorial search service powered by crowd-sourced ratings and rev
 npm run dev
 ```
 
-Starts the React app in **development** mode at `http://localhost:8282`\
+Starts the React app in **development** mode at `http://localhost:8282`
 
 - supports hot code reloading
 - automatic transpilation and bundling
@@ -100,6 +100,14 @@ Starts the Jest / Enzyme testing suite
 | `next`      | development | Framework for server-side rendered React apps   | [docs](https://nextjs.org/learn)            |
 | `react`     | development | JavaScript library for building user interfaces | [docs](https://reactjs.org/)                |
 | `react-dom` | development | React package for working with the DOM          | [github](https://github.com/facebook/react) |
+| `apollo-boost` | state mgmt | Zero-config Apollo Client | [github](https://github.com/apollographql/apollo-client#readme) |
+| `next-with-apollo` | development | Apollo HOC for Next.js | [github](https://github.com/lfades/next-with-apollo#readme) |
+| `react-apollo` | state mgmt | React data container for Apollo Client | [github](https://github.com/apollographql/react-apollo#readme) |
+| `graphql` | development | JS ref implementation of GraphQL (requirement for `apollo-boost` and `react-apollo`) | [github](https://github.com/graphql/graphql-js) |
+| `graphql-tag` | development | JS template literal tag that parses GraphQL queries | [github](https://github.com/apollographql/graphql-tag#readme) |
+| `@zeit/next-sass` | styling | Compiles `.scss` files to `.css` files | [github](https://github.com/zeit/next-plugins#readme) |
+| `@zeit/next-css` | styling | Required for importing fonts and other assets in `.scss` files | [github](https://github.com/zeit/next-plugins#readme) |
+| `node-sass` | styling | Nodejs bindings for `LibSass` | [github](https://github.com/sass/node-sass) |
 
 ### Frontend Dependencies (development)
 
@@ -120,6 +128,8 @@ Starts the Jest / Enzyme testing suite
 | `husky`                     | development | Pre-`git commit` linting hooks                             | [docs](https://github.com/typicode/husky/blob/master/DOCS.md)         |
 | `lint-staged`               | development | Lint files staged by git                                   | [github](https://github.com/okonet/lint-staged#readme)                |
 | `prettier`                  | development | Opinionated code formatter                                 | [docs](https://prettier.io/)                                          |
+| `file-loader` | bundling | A file loader module for webpack | [github](https://github.com/webpack-contrib/file-loader) |
+| `url-loader` | bundling | A loader for webpack which transforms files into base64 URI | [github](https://github.com/webpack-contrib/url-loader) |
 
 ---
 

@@ -1,8 +1,27 @@
-/*
-==========================
-FONTS
-==========================
-*/
-* {
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: "Akkurat Pro";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/akkurat_pro-regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Akkurat Pro Bold";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/akkurat_pro-bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Akkurat Pro Light";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/akkurat_pro-light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Akkurat Pro Mono";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/akkurat_pro-mono.woff") format("woff");
 }
