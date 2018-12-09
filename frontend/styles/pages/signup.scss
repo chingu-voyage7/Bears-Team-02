@@ -1,0 +1,44 @@
+.signup-form{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 16px;
+    max-width: 400px;
+    padding: 1em;
+}
+
+.signup-form label {
+    grid-column: 1 / 2;
+}
+ 
+.signup-form input,
+.signup-form button {
+    grid-column: 2 / 3;
+}
+
+/* .signup-email-label{
+
+}
+
+.signup-name-label{
+    
+}
+
+.signup-password-label{
+    
+}
+
+.signup-email-input{
+    
+}
+
+.signup-name-input{
+    
+}
+
+.signup-password-input{
+    
+}
+
+.signup-button{
+
+} */

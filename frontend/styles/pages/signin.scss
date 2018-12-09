@@ -1,0 +1,15 @@
+.signin-form{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-gap: 16px;
+    max-width: 400px;
+    padding: 1em;
+}
+.signin-form label {
+    grid-column: 1 / 2;
+}
+ 
+.signin-form input,
+.signin-form button {
+    grid-column: 2 / 3;
+}
