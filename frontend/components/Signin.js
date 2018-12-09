@@ -34,29 +34,25 @@ class Signin extends Component {
     return (
       <Mutation mutation={SIGNIN_MUTATION}>
         {(signin, { data, loading, error }) => (
-          <form>
+          <form className="signin-form">
             <h2>Sign into your account</h2>
-            <label htmlFor="email">
-              Email
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={this.state.email}
-                onChange={this.saveToState}
-              />
-            </label>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={this.saveToState}
+            />
 
-            <label htmlFor="password">
-              Password
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.saveToState}
-              />
-            </label>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              value={this.state.password}
+              onChange={this.saveToState}
+            />
             <button type="submit">Login</button>
             <br />
             {data && <div>{JSON.stringify(data)}</div>}
