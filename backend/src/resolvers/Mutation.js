@@ -7,8 +7,15 @@ const createPost = async (_, args, ctx, info) => {
   return await ctx.prisma.createPost({ ...data })
 }
 
+function validateSignup(args) {
+  if (!args.email) throw new Error('Error: Email is required!')
+  if (!args.name) throw new Error('Error: Name is required!')
+  if (!args.password) throw new Error('Error: Password is required!')
+}
+
 module.exports = {
   signup: async (_, args, ctx, info) => {
+    validateSignup(args)
     const password = await bcrypt.hash(args.password, 10)
     const user = await ctx.prisma.createUser({
       name: args.name,

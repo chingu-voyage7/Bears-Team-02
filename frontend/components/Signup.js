@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import DisplayError from './DisplayError'
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION($name: String!, $email: String!, $password: String) {
@@ -73,7 +74,7 @@ class Signup extends Component {
 
             <button type="submit">Sign Up!</button>
             <br />
-            {data && <div>{JSON.stringify(data)}</div>}
+            <DisplayError error={error} />
           </form>
         )}
       </Mutation>
