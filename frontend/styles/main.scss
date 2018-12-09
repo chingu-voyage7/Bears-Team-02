@@ -1,18 +1,20 @@
-// abstracts
+// 🔺 abstracts
 @import './abstracts/variables';
 @import './abstracts/functions';
 @import './abstracts/mixins';
 
-// base
+// 🏡 base
 @import './base/base';
 @import './base/typography';
 @import './base/normalize';
 @import '//base/animations';
 
-// components
+// 🧩 components
 @import './components/header';
+@import './components/search';
+@import './components/nav';
 @import './components/footer';
 
-// pages
+// 📄 pages
 @import './pages/signin';
 @import './pages/signup';

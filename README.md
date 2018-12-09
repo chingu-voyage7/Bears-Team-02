@@ -108,6 +108,7 @@ Starts the Jest / Enzyme testing suite
 | `@zeit/next-sass` | styling | Compiles `.scss` files to `.css` files | [github](https://github.com/zeit/next-plugins#readme) |
 | `@zeit/next-css` | styling | Required for importing fonts and other assets in `.scss` files | [github](https://github.com/zeit/next-plugins#readme) |
 | `node-sass` | styling | Nodejs bindings for `LibSass` | [github](https://github.com/sass/node-sass) |
+| `nprogress` | UI | Progress bar for loading components | [github](https://github.com/rstacruz/nprogress) |
 
 ### Frontend Dependencies (development)
 

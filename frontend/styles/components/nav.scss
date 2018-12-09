@@ -1,0 +1,12 @@
+nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.nav__item {
+  display: block;
+  align-self: center;
+  text-align: center;
+  font-family: 'Akkurat Pro Bold';
+  text-decoration: none;
+}
