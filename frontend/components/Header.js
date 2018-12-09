@@ -15,7 +15,7 @@ Router.onRouteChangeError = () => {
   NProgress.done()
 }
 
-const Header = () => (
+const Header = props => (
   <header className="header">
     <Link href="/">
       <a className="logo">
@@ -24,7 +24,7 @@ const Header = () => (
         <span className="logo__curly">&#125;</span>
       </a>
     </Link>
-    <Search />
+    <Search handleChange={props.handleChange} client={props.client} />
     <Nav />
   </header>
 )

@@ -37,42 +37,47 @@ class Signup extends Component {
     return (
       <Mutation mutation={SIGNUP_MUTATION}>
         {(signup, { data, loading, error }) => (
-          <form method="POST" onSubmit={e => this.handleSubmit(e, signup)}>
+          <form className="signup-form" method="POST" onSubmit={e => this.handleSubmit(e, signup)}>
             <h2>Sign Up for An Account</h2>
-            <label htmlFor="email">
+            <label className="signup-email-label" htmlFor="email">
               Email
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={this.state.email}
-                onChange={this.saveToState}
-              />
             </label>
+            <input
+              className="signup-email-input"
+              type="email"
+              name="email"
+              placeholder="email"
+              value={this.state.email}
+              onChange={this.saveToState}
+            />
 
-            <label htmlFor="name">
+            <label className="signup-name-label" htmlFor="name">
               Name
-              <input
-                type="text"
-                name="name"
-                placeholder="name"
-                value={this.state.name}
-                onChange={this.saveToState}
-              />
             </label>
+            <input
+              className="signup-name-input"
+              type="text"
+              name="name"
+              placeholder="name"
+              value={this.state.name}
+              onChange={this.saveToState}
+            />
 
-            <label htmlFor="password">
+            <label className="signup-password-label" htmlFor="password">
               Password
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.saveToState}
-              />
             </label>
+            <input
+              className="signup-password-input"
+              type="password"
+              name="password"
+              placeholder="password"
+              value={this.state.password}
+              onChange={this.saveToState}
+            />
 
-            <button type="submit">Sign Up!</button>
+            <button className="signup-button" type="submit">
+              Sign Up!
+            </button>
             <br />
             <DisplayError error={error} />
           </form>
