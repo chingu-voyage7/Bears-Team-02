@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 class Search extends React.Component {
   state = {
     search: '',
@@ -13,11 +14,10 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search">
-        {/* <form className="search__form" action="search"> */}
         <input
           className="search__bar"
           type="search"
-          value={this.state.value}
+          value={this.state.search}
           onChange={this.handleChange}
           placeholder="Find resources"
           name="search"
@@ -25,9 +25,9 @@ class Search extends React.Component {
         <button className="search__button" type="submit">
           🔍
         </button>
-        {/* </form> */}
       </div>
     )
   }
 }
+
 export default Search

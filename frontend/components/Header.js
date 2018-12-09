@@ -25,6 +25,7 @@ const Header = props => (
       </a>
     </Link>
     <Search handleChange={props.handleChange} client={props.client} />
+  {/*<Search />*/}
     <Nav />
   </header>
 )
