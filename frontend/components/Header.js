@@ -1,18 +1,32 @@
 import Link from 'next/link'
 import Router from 'next/router'
+import NProgress from 'nprogress'
 import Nav from './Nav'
 import Search from './Search'
 
+Router.onRouteChangeStart = () => {
+  NProgress.start()
+}
+Router.onRouteChangeComplete = () => {
+  NProgress.done()
+}
+
+Router.onRouteChangeError = () => {
+  NProgress.done()
+}
+
 const Header = () => (
-  <>
-    <div className="bar">
-      <Link href="/">
-        <a>the_source</a>
-      </Link>
-      <Nav />
-      <Search />
-    </div>
-  </>
+  <header className="header">
+    <Link href="/">
+      <a className="logo">
+        <span className="logo__curly">&#123;</span>
+        the_source
+        <span className="logo__curly">&#125;</span>
+      </a>
+    </Link>
+    <Search />
+    <Nav />
+  </header>
 )
 
 export default Header
