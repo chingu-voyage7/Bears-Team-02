@@ -1,10 +1,12 @@
 import React from 'react'
 
 const Search = () => (
-  <div className="search-container">
-    <form action="search">
-      <input type="text" placeholder="Search.." name="search" />
-      <button type="submit">🔍</button>
+  <div className="search">
+    <form className="search__form" action="search">
+      <input className="search__bar" type="text" placeholder="Find resources" name="search" />
+      <button className="search__button" type="submit">
+        🔍
+      </button>
     </form>
   </div>
 )
