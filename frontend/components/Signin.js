@@ -28,6 +28,7 @@ class Signin extends Component {
     this.setState({ email: '', password: '' })
     // refetch user query
     // route to wherever we want!
+    console.log('user', 'you are signed in')
   }
 
   render() {
