@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
 import InnerHeader from './InnerHeader'
-
 import averageRating from '../lib/averageRating'
 
 const perPage = 30
@@ -12,7 +11,8 @@ const perPage = 30
 const SEARCH_POSTS_QUERY = gql`
   query SEARCH_POSTS_QUERY(
     $term: String,
-    $difficulty: [Difficulty!], 
+    $difficulty: [Difficulty!],
+    $price: [PriceRange!], 
     $first: Int = ${perPage}, 
     $skip: Int = 0, 
     $orderBy: PostOrderByInput = title_ASC
@@ -20,7 +20,8 @@ const SEARCH_POSTS_QUERY = gql`
     posts(
       where: {
         AND: [
-          {difficulty_in: $difficulty},
+          { difficulty_in: $difficulty },
+          { price_in: $price }
           {
             OR: [
             { title_contains: $term }, 
@@ -65,13 +66,25 @@ const ORDER_BY = [
 // difficulty filters
 const DIFFICULTY = ['EASY', 'MID', 'HARD', 'EXPERT']
 
-// temporary star rendering
-function displayRating(x) {
-  let str = ''
-  for (let i = 0; i < x; i += 1) {
-    str += '🔥'
+// price filters
+const PRICE = ['FREE', 'LOW', 'MID', 'HIGH']
+const formatPriceLabel = p => {
+  const i = PRICE.indexOf(p)
+  if (i === 0) return 'FREE'
+  if (i === 1) return '$'
+  if (i === 2) return '$$'
+  if (i === 3) return '$$$'
+  return null
+}
+
+// stops empty array going to query
+// makes default search for all filters
+function getQueryValue(arr, i) {
+  const params = [DIFFICULTY, PRICE]
+  if (!arr.length) {
+    return params[i]
   }
-  return `${str}  (${x}/5)`
+  return arr
 }
 
 class Posts extends React.Component {
@@ -80,6 +93,7 @@ class Posts extends React.Component {
     posts: [],
     avgs: [],
     term: '',
+    price: [],
     difficulty: [],
     orderBy: 0,
   }
@@ -108,9 +122,33 @@ class Posts extends React.Component {
     this.setState({ loading: false, posts: res.data.posts })
   }, 500)
 
+  // refetch query when user changes price array
+  handlePrice = async (p, client) => {
+    this.setState({ loading: true })
+    const { difficulty } = this.state
+    let { price } = this.state
+
+    if (price.includes(p)) {
+      price = price.filter(el => el !== p)
+    } else {
+      price.push(p)
+    }
+
+    const queryPrice = getQueryValue(price, 1)
+    const queryDifficulty = getQueryValue(difficulty, 0)
+
+    const res = await client.query({
+      query: SEARCH_POSTS_QUERY,
+      variables: { term: this.state.term, price: queryPrice, difficulty: queryDifficulty },
+    })
+
+    this.setState({ loading: false, price, posts: res.data.posts })
+  }
+
   // refetch every time user changes difficulty array
   handleDifficulty = async (d, client) => {
     this.setState({ loading: true })
+    const { price } = this.state
     let { difficulty } = this.state
     // filter or replace based on pre existance
     if (difficulty.includes(d)) {
@@ -119,16 +157,12 @@ class Posts extends React.Component {
       difficulty.push(d)
     }
     // check to see if none are checked
-    let queryDifficulty
-    if (!difficulty.length) {
-      queryDifficulty = DIFFICULTY
-    } else {
-      queryDifficulty = difficulty
-    }
+    const queryPrice = getQueryValue(price, 1)
+    const queryDifficulty = getQueryValue(difficulty, 0)
     // query prisma with both search term and difficulty
     const res = await client.query({
       query: SEARCH_POSTS_QUERY,
-      variables: { term: this.state.term, difficulty: queryDifficulty },
+      variables: { term: this.state.term, difficulty: queryDifficulty, price: queryPrice },
     })
 
     this.setState({ loading: false, difficulty, posts: res.data.posts })
@@ -151,9 +185,9 @@ class Posts extends React.Component {
       // find the averages and sort from highest to lowest average
     } else if (orderBy === 1) {
       sortedPosts = posts.sort((a, b) => averageRating(b.reviews) - averageRating(a.reviews))
-      // count reviews not done yet
+      // count reviews and sort from most to least
     } else {
-      sortedPosts = posts.reverse()
+      sortedPosts = posts.sort((a, b) => b.reviews.length - a.reviews.length)
     }
     this.setState({ posts: sortedPosts, orderBy })
   }
@@ -165,14 +199,37 @@ class Posts extends React.Component {
       </span>
     ))
 
+  displayRating = x => {
+    let str = ''
+    for (let i = 0; i < x; i += 1) {
+      str += '🔥'
+    }
+    return (
+      <span>
+        {str} <span>{x}/5</span>
+      </span>
+    )
+  }
+
   render() {
     return (
       <ApolloConsumer>
         {client => (
           <>
             <InnerHeader client={client} handleChange={this.handleChange} />
-            {this.state.loading && <h3>Loading....Do something cool...</h3>}
             <div className="filter">
+              <div className="filter__price">
+                {PRICE.map(p => (
+                  <span
+                    key={p}
+                    className="filter__price__option"
+                    onClick={() => this.handlePrice(p, client)}
+                    style={{ background: this.state.price.includes(p) && '#f4e0ff' }}
+                  >
+                    {formatPriceLabel(p)}
+                  </span>
+                ))}
+              </div>
               <div className="filter__difficulty">
                 {DIFFICULTY.map(d => (
                   <span
@@ -197,18 +254,33 @@ class Posts extends React.Component {
                 ))}
               </select>
             </div>
+
             <div className="posts">
-              {this.state.posts.map((post, i) => (
-                <div className="post" key={post.id}>
-                  <h2>{post.title}</h2>
-                  <p>{displayRating(post.averageRating)}</p>
-                  <p>{post.author}</p>
-                  <p style={{ color: 'red', fontWeight: 'bold' }}>{post.difficulty}</p>
-                  <div className="post__tags">{this.renderTags(post.tags)}</div>
-                  <img src={post.image} width="100" />
-                  <p>{post.description}</p>
-                </div>
-              ))}
+              <div className="posts__message">
+                {this.state.loading && <p>Loading...</p>}
+                {!!this.state.posts.length && !this.state.loading && (
+                  <p>
+                    Browsing <span>[</span>"{this.state.term}"<span>]</span>
+                  </p>
+                )}
+              </div>
+              <div className="posts__grid">
+                {this.state.posts.map((post, i) => (
+                  <div className="post" key={post.id}>
+                    <img src={post.image} width="250" height="250" />
+                    <div className="post__info">
+                      <h2>{post.title.slice(0, 30)}</h2>
+                      <p>{post.author}</p>
+                      <p>{post.reviews.length} total reviews</p>
+                      <p>
+                        {post.difficulty} {'  |  '} {formatPriceLabel(post.price)}
+                      </p>
+                      <div className="post__tags">{this.renderTags(post.tags)}</div>
+                      <div>{this.displayRating(post.averageRating)}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </>
         )}
