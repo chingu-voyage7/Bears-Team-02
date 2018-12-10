@@ -2,7 +2,7 @@ import React from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
-import Search from './Search'
+import InnerHeader from './InnerHeader'
 
 const perPage = 10
 
@@ -94,7 +94,7 @@ class Posts extends React.Component {
       <ApolloConsumer>
         {client => (
           <>
-            <Search handleChange={this.handleChange} client={client} />
+            <InnerHeader handleChange={this.handleChange} client={client} />
             {this.state.loading && <h3>Loading....Do something cool...</h3>}
             <div className="filter">
               {DIFFICULTY.map(d => (
