@@ -27,6 +27,7 @@ const Header = props => (
     {/* {props.router !== '/posts' && (
     <Search handleChange={props.handleChange} client={props.client} />
     )} */}
+
     <Nav />
   </header>
 )
