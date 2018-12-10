@@ -3,10 +3,8 @@ import { ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
-import Header from './Header'
 import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
-import Search from './Search'
 
 const perPage = 30
 
