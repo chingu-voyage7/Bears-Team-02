@@ -25,6 +25,7 @@ const Header = props =>
         </a>
       </Link>
 
+
       <Nav />
     </header>
   ) : null)
