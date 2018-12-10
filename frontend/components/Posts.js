@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
 import InnerHeader from './InnerHeader'
+
 import averageRating from '../lib/averageRating'
 
 const perPage = 30

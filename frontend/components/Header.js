@@ -27,5 +27,4 @@ const Header = props =>
       <Nav />
     </header>
   ) : null)
-
 export default withRouter(Header)
