@@ -1,0 +1,21 @@
+.filter {
+  width: 300px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 1rem;
+  border: 1px solid lightgray;
+}
+
+.filter__option {
+  text-align: center;
+  padding: 0.5rem;
+  border-right: 1px solid lightgrey;
+  cursor: pointer;
+  user-select: none;
+  &:last-child {
+    border-right: 0;
+  }
+  &:hover {
+    background: #f4e0ff;
+  }
+}
