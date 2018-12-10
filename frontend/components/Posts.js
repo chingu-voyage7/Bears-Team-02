@@ -2,12 +2,11 @@ import React from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
-
 import isEqual from 'lodash.isequal'
 import Header from './Header'
+import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
 import Search from './Search'
-
 
 const perPage = 30
 
@@ -172,7 +171,7 @@ class Posts extends React.Component {
       <ApolloConsumer>
         {client => (
           <>
-            <Search handleChange={this.handleChange} client={client} />
+            <InnerHeader client={client} handleChange={this.handleChange} />
             {this.state.loading && <h3>Loading....Do something cool...</h3>}
             <div className="filter">
               <div className="filter__difficulty">
