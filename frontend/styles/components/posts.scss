@@ -1,21 +1,59 @@
 .filter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+.filter__difficulty {
+  height: 35px;
   width: 300px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-top: 1rem;
   border: 1px solid lightgray;
 }
 
-.filter__option {
+.filter__difficulty__option {
   text-align: center;
   padding: 0.5rem;
   border-right: 1px solid lightgrey;
+  font-family: 'Akkurat Pro Mono';
   cursor: pointer;
   user-select: none;
+  transition: all 0.25s;
   &:last-child {
     border-right: 0;
   }
   &:hover {
-    background: #f4e0ff;
+    background: darken(#f4e0ff, 5);
   }
+}
+
+.filter__orderBy {
+  height: 35px;
+  width: 300px;
+  padding: 0.5rem;
+  font-family: 'Akkurat Pro Mono';
+  & > * {
+    font-family: 'Akkurat Pro Mono';
+  }
+}
+
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 1rem 2rem;
+}
+
+.post {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(auto, 1fr));
+}
+
+.post__tags__item {
+  background: lighten(skyblue, 20);
 }

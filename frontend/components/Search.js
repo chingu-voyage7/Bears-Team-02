@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 class Search extends React.Component {
   state = {
     search: '',
@@ -21,6 +20,7 @@ class Search extends React.Component {
           onChange={this.handleChange}
           placeholder="Find resources"
           name="search"
+          autoFocus
         />
         <button className="search__button" type="submit">
           🔍
