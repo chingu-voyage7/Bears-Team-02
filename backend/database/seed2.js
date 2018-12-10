@@ -16,6 +16,7 @@ module.exports = async () => {
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 // token generated to access sheets api
 const TOKEN_PATH = path.join(__dirname, 'token.json')
+console.log(TOKEN_PATH)
 // authorize sheets api and create new token if needed
 async function authorize(callback) {
   const sheetsAPI = new google.auth.OAuth2(
