@@ -111,6 +111,7 @@ class Posts extends React.Component {
 
   // debounce to .5s against user key input
   handleChange = debounce(async (term, client) => {
+    if (!term) return this.setState({ posts: [], term })
     this.setState({ loading: true, term })
     // if no difficulty is selected act as if they all are
     const difficulty = this.state.difficulty.length ? this.state.difficulty : DIFFICULTY
@@ -119,7 +120,7 @@ class Posts extends React.Component {
       query: SEARCH_POSTS_QUERY,
       variables: { term, difficulty },
     })
-    this.setState({ loading: false, posts: res.data.posts })
+    return this.setState({ loading: false, posts: res.data.posts })
   }, 500)
 
   // refetch query when user changes price array
@@ -215,8 +216,9 @@ class Posts extends React.Component {
     return (
       <ApolloConsumer>
         {client => (
-          <>
+          <div className="posts__component">
             <InnerHeader client={client} handleChange={this.handleChange} />
+
             <div className="filter">
               <div className="filter__price">
                 {PRICE.map(p => (
@@ -230,6 +232,7 @@ class Posts extends React.Component {
                   </span>
                 ))}
               </div>
+
               <div className="filter__difficulty">
                 {DIFFICULTY.map(d => (
                   <span
@@ -242,6 +245,7 @@ class Posts extends React.Component {
                   </span>
                 ))}
               </div>
+
               <select
                 className="filter__orderBy"
                 value={this.state.orderBy}
@@ -269,7 +273,7 @@ class Posts extends React.Component {
                   <div className="post" key={post.id}>
                     <img src={post.image} width="250" height="250" />
                     <div className="post__info">
-                      <h2>{post.title.slice(0, 30)}</h2>
+                      <h2>{post.title}</h2>
                       <p>{post.author}</p>
                       <p>{post.reviews.length} total reviews</p>
                       <p>
@@ -282,7 +286,7 @@ class Posts extends React.Component {
                 ))}
               </div>
             </div>
-          </>
+          </div>
         )}
       </ApolloConsumer>
     )

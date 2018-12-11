@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import Router from 'next/router'
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -26,15 +27,14 @@ class Signin extends Component {
     e.preventDefault()
     await signin({ variables: { ...this.state } })
     this.setState({ email: '', password: '' })
-    // refetch user query
-    // route to wherever we want!
+    Router.push('/')
   }
 
   render() {
     return (
       <Mutation mutation={SIGNIN_MUTATION}>
         {(signin, { data, loading, error }) => (
-          <form className="signin-form">
+          <form className="signin-form" action="POST" onSubmit={e => this.handleSubmit(e, signin)}>
             <h2>Sign into your account</h2>
             <label htmlFor="email">Email</label>
             <input
