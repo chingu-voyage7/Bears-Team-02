@@ -13,4 +13,4 @@ generate:
 
 hooks:
   post-deploy:
-    - prisma.cmd generate
+    - prisma generate

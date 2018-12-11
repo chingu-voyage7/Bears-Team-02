@@ -21,7 +21,7 @@ module.exports = async rows => {
     id: '100',
     name: 'User',
     email: 'user@gmail.com',
-    password: password,
+    password,
     image: userImage,
     role: 'USER',
     createdAt: date
@@ -40,7 +40,7 @@ module.exports = async rows => {
       id: fakeId(),
       name,
       email: `${name}@gmail.com`,
-      password: 'password',
+      password,
       image: userImage,
       role: 'ADMIN',
       createdAt: date
@@ -51,7 +51,7 @@ module.exports = async rows => {
   // helper function to send post request
   // token generated with `prisma token` command
   async function sendData(data) {
-    return await axios({
+    await axios({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +89,10 @@ module.exports = async rows => {
   // create list for post tags array
   const lists = rows.map((el, index) => {
     if (index === 0) return
-    const tags = el[2].split(',').map(tag => tag.trim())
+    let tags = el[2].split(',').map(tag => tag.trim())
+    // if (tags[0] === '') {
+    //   tags = []
+    // }
     const obj2 = { _typeName: 'Post', id: index.toString(), tags }
     return obj2
   })
