@@ -19,6 +19,7 @@ enum ContentType {
   TUTORIAL
   BOOK
   ARTICLE
+  ACADEMY
 }
 
 scalar DateTime
@@ -31,16 +32,20 @@ enum Difficulty {
 }
 
 enum Language {
-  JAVASCRIPT
-  PYTHON
-  CSHARP
+  ALL
+  AWS
   CSS
   CLI
-  LINUX
-  AWS
+  CSHARP
+  DATABASE
   GIT
+  HTML
   JAVA
+  JAVASCRIPT
+  LINUX
   MARKDOWN
+  PYTHON
+  RUBY
 }
 
 scalar Long
@@ -210,6 +215,120 @@ type PostPreviousValues {
   createdAt: DateTime!
 }
 
+input PostScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  language: Language
+  language_not: Language
+  language_in: [Language!]
+  language_not_in: [Language!]
+  contentType: ContentType
+  contentType_not: ContentType
+  contentType_in: [ContentType!]
+  contentType_not_in: [ContentType!]
+  difficulty: Difficulty
+  difficulty_not: Difficulty
+  difficulty_in: [Difficulty!]
+  difficulty_not_in: [Difficulty!]
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  author: String
+  author_not: String
+  author_in: [String!]
+  author_not_in: [String!]
+  author_lt: String
+  author_lte: String
+  author_gt: String
+  author_gte: String
+  author_contains: String
+  author_not_contains: String
+  author_starts_with: String
+  author_not_starts_with: String
+  author_ends_with: String
+  author_not_ends_with: String
+  href: String
+  href_not: String
+  href_in: [String!]
+  href_not_in: [String!]
+  href_lt: String
+  href_lte: String
+  href_gt: String
+  href_gte: String
+  href_contains: String
+  href_not_contains: String
+  href_starts_with: String
+  href_not_starts_with: String
+  href_ends_with: String
+  href_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  price: PriceRange
+  price_not: PriceRange
+  price_in: [PriceRange!]
+  price_not_in: [PriceRange!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
+}
+
 type PostSubscriptionPayload {
   mutation: MutationType!
   node: Post
@@ -243,6 +362,19 @@ input PostUpdateInput {
   user: UserUpdateOneRequiredWithoutPostsInput
 }
 
+input PostUpdateManyDataInput {
+  language: Language
+  tags: PostUpdatetagsInput
+  contentType: ContentType
+  difficulty: Difficulty
+  title: String
+  description: String
+  author: String
+  href: String
+  image: String
+  price: PriceRange
+}
+
 input PostUpdateManyMutationInput {
   language: Language
   tags: PostUpdatetagsInput
@@ -263,6 +395,13 @@ input PostUpdateManyWithoutUserInput {
   disconnect: [PostWhereUniqueInput!]
   update: [PostUpdateWithWhereUniqueWithoutUserInput!]
   upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
+}
+
+input PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput!
+  data: PostUpdateManyDataInput!
 }
 
 input PostUpdateOneRequiredWithoutReviewsInput {
@@ -531,6 +670,56 @@ type ReviewPreviousValues {
   createdAt: DateTime!
 }
 
+input ReviewScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  rating: Int
+  rating_not: Int
+  rating_in: [Int!]
+  rating_not_in: [Int!]
+  rating_lt: Int
+  rating_lte: Int
+  rating_gt: Int
+  rating_gte: Int
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [ReviewScalarWhereInput!]
+  OR: [ReviewScalarWhereInput!]
+  NOT: [ReviewScalarWhereInput!]
+}
+
 type ReviewSubscriptionPayload {
   mutation: MutationType!
   node: Review
@@ -556,6 +745,11 @@ input ReviewUpdateInput {
   post: PostUpdateOneRequiredWithoutReviewsInput
 }
 
+input ReviewUpdateManyDataInput {
+  rating: Int
+  text: String
+}
+
 input ReviewUpdateManyMutationInput {
   rating: Int
   text: String
@@ -568,6 +762,8 @@ input ReviewUpdateManyWithoutPostInput {
   disconnect: [ReviewWhereUniqueInput!]
   update: [ReviewUpdateWithWhereUniqueWithoutPostInput!]
   upsert: [ReviewUpsertWithWhereUniqueWithoutPostInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
 }
 
 input ReviewUpdateManyWithoutUserInput {
@@ -577,6 +773,13 @@ input ReviewUpdateManyWithoutUserInput {
   disconnect: [ReviewWhereUniqueInput!]
   update: [ReviewUpdateWithWhereUniqueWithoutUserInput!]
   upsert: [ReviewUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [ReviewScalarWhereInput!]
+  updateMany: [ReviewUpdateManyWithWhereNestedInput!]
+}
+
+input ReviewUpdateManyWithWhereNestedInput {
+  where: ReviewScalarWhereInput!
+  data: ReviewUpdateManyDataInput!
 }
 
 input ReviewUpdateWithoutPostDataInput {

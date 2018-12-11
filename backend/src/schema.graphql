@@ -65,16 +65,20 @@ type Count {
 
 # various programming languages
 enum Language {
-  JAVASCRIPT
-  PYTHON
-  CSHARP
+  ALL
+  AWS
   CSS
   CLI
-  LINUX
-  AWS
+  CSHARP
+  DATABASE
   GIT
+  HTML
   JAVA
+  JAVASCRIPT
+  LINUX
   MARKDOWN
+  PYTHON
+  RUBY
 }
 
 # general categories of content
@@ -83,6 +87,7 @@ enum ContentType {
   TUTORIAL
   BOOK
   ARTICLE
+  ACADEMY
 }
 
 # difficulty level of content
