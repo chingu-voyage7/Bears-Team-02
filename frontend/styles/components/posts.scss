@@ -68,28 +68,24 @@
 
 .posts__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
   grid-gap: 50px;
+  justify-items: center;
+  align-items: center;
   padding: 1rem 2rem;
 }
 
 .post {
   display: grid;
-  grid-template-rows: repeat(auto-fit, minmax(auto, 1fr));
-
+  justify-items: center;
   img {
-    justify-self: center;
-    border: 1px solid lightgray;
-  }
-
-  .post__info {
-    width: 250px;
-    justify-self: center;
-    padding-top: 0.5rem;
+    border: 1px solid $tertiary;
   }
 }
 
-.post__tags__item {
-  background: lighten(skyblue, 20);
+.post__title {
+  font-family: 'Akkurat Pro Bold';
+  font-size: 2rem;
+  text-align: center;
 }

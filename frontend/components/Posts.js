@@ -1,6 +1,7 @@
 import React from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
+import Router from 'next/router'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
 import InnerHeader from './InnerHeader'
@@ -16,7 +17,7 @@ const SEARCH_POSTS_QUERY = gql`
     $first: Int = ${perPage}, 
     $skip: Int = 0, 
     $orderBy: PostOrderByInput = title_ASC
-    ) {
+    ) { 
     posts(
       where: {
         AND: [
@@ -194,11 +195,14 @@ class Posts extends React.Component {
   }
 
   renderTags = tags =>
-    tags.map(tag => (
-      <span className="post__tags__item" key={tag}>
-        {tag}
-      </span>
-    ))
+    tags.map((tag, i) => {
+      if (i > 6) return null
+      return (
+        <span className="post__tags__item" key={tag}>
+          {tag.slice(0, 10)}
+        </span>
+      )
+    })
 
   displayRating = x => {
     let str = ''
@@ -210,6 +214,10 @@ class Posts extends React.Component {
         {str} <span>{x}/5</span>
       </span>
     )
+  }
+
+  onPostClick = id => {
+    Router.push({ pathname: '/post', query: { id } })
   }
 
   render() {
@@ -261,7 +269,6 @@ class Posts extends React.Component {
 
             <div className="posts">
               <div className="posts__message">
-                {this.state.loading && <p>Loading...</p>}
                 {!!this.state.posts.length && !this.state.loading && (
                   <p>
                     Browsing <span>[</span>"{this.state.term}"<span>]</span>
@@ -270,17 +277,15 @@ class Posts extends React.Component {
               </div>
               <div className="posts__grid">
                 {this.state.posts.map((post, i) => (
-                  <div className="post" key={post.id}>
-                    <img src={post.image} width="250" height="250" />
-                    <div className="post__info">
-                      <h2>{post.title}</h2>
+                  <div className="post" key={post.id} onClick={() => this.onPostClick(post.id)}>
+                    <p className="post__title">{post.title.slice(0, 30)}</p>
+                    <img src={post.image} width="300" height="300" />
+                    <div>
                       <p>{post.author}</p>
-                      <p>{post.reviews.length} total reviews</p>
-                      <p>
-                        {post.difficulty} {'  |  '} {formatPriceLabel(post.price)}
-                      </p>
-                      <div className="post__tags">{this.renderTags(post.tags)}</div>
-                      <div>{this.displayRating(post.averageRating)}</div>
+                      <p>{post.difficulty}</p>
+                      <p>{post.price}</p>
+                      <p>{this.displayRating(averageRating(post.reviews))}</p>
+                      <p>{this.renderTags(post.tags)}</p>
                     </div>
                   </div>
                 ))}
