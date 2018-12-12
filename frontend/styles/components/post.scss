@@ -1,8 +1,6 @@
 .post__component {
   height: 100vh;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
   padding-left: 10px;
   padding-right: 10px;
   background-color: $tertiary;
@@ -10,8 +8,15 @@
   // justify-items: center;
 }
 
-.post__image,
-img {
+.post__href {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 10%;
+}
+
+.post__image {
+  height: 300px;
+  width: 300px;
   grid-column: 1;
   border: 1px solid $tertiary;
 }
@@ -25,6 +30,15 @@ img {
   align-self: center;
   font-family: 'Akkurat Pro Bold';
   text-decoration: none;
-  font-family: 'Akkurat Pro Bold';
   font-size: 2rem;
+}
+
+.post__tags {
+  display: flex;
+
+  &>* {
+    padding: .25rem;
+    margin-right: .5rem;
+    background: lightpink;
+  }
 }

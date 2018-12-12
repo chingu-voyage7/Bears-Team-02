@@ -43,36 +43,46 @@ class Post extends React.Component {
     )
   }
 
+  renderTags = tags => tags.map(tag => <span key={tag}>{tag}</span>)
+
   render() {
     return (
       <Query query={ITEM_QUERY} variables={{ id: this.props.id }}>
         {({ data, loading, error }) => {
           if (loading) return <p>Loading...</p>
           if (error) return <DisplayError error={error} />
-
+          const {
+            image,
+            title,
+            description,
+            author,
+            language,
+            href,
+            contentType,
+            tags,
+            difficulty,
+            reviews,
+            price,
+          } = data.post
           return (
             <>
               <InnerHeader />
-              <div className="post__component" style={{ textDecoration: 'none' }}>
-                <a href={data.post.href} className="post__href" target="_blank">
+              <div className="post__component">
+                <a href={href} className="post__href" target="_blank">
                   <div className="post__image">
-                    <img src={data.post.image} />
+                    <img src={image} />
                   </div>
-                  <div className="post__detail" style={{ textDecoration: 'none' }}>
-                    <h2 className="post__title">{data.post.title}</h2>
-                    <p className="post__description">{data.post.description}</p>
-                    <p className="post__author">Author: {data.post.author}</p>
-                    <p>Language: {data.post.language}</p>
-                    <p>Content Type: {data.post.contentType}</p>
-                    <p>
-                      Tags:
-                      {data.post.tags.map((tag, i) => (
-                        <p key={`${tag}-${i}`}>{`${tag}, `}</p>
-                      ))}
-                    </p>
-                    <p>Difficulty: {data.post.difficulty}</p>
-                    <p>{this.displayRating(averageRating(data.post.reviews))}</p>
-                    <p>{data.post.price}</p>
+                  <div className="post__detail">
+                    <h2 className="post__title">{title}</h2>
+                    <p className="post__description">{description}</p>
+                    <p className="post__author">Author: {author}</p>
+                    <p>Language: {language}</p>
+                    <p>Content Type: {contentType}</p>
+                    <div className="post__tags">{this.renderTags(tags)}</div>
+
+                    <p>Difficulty: {difficulty}</p>
+                    <p>{this.displayRating(averageRating(reviews))}</p>
+                    <p>{price}</p>
                   </div>
                 </a>
               </div>
