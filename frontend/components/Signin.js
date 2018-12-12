@@ -54,6 +54,9 @@ class Signin extends Component {
               onChange={this.saveToState}
             />
             <button type="submit">Login</button>
+            <a className="signup__google" href="http://localhost:7272/google">
+              Sign In with Google
+            </a>
             <br />
             {data && <div>{JSON.stringify(data)}</div>}
           </form>
