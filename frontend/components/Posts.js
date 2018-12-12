@@ -13,11 +13,11 @@ const SEARCH_POSTS_QUERY = gql`
   query SEARCH_POSTS_QUERY(
     $term: String,
     $difficulty: [Difficulty!],
-    $price: [PriceRange!], 
-    $first: Int = ${perPage}, 
-    $skip: Int = 0, 
+    $price: [PriceRange!],
+    $first: Int = ${perPage},
+    $skip: Int = 0,
     $orderBy: PostOrderByInput = title_ASC
-    ) { 
+    ) {
     posts(
       where: {
         AND: [
@@ -25,8 +25,8 @@ const SEARCH_POSTS_QUERY = gql`
           { price_in: $price }
           {
             OR: [
-            { title_contains: $term }, 
-            { description_contains: $term }, 
+            { title_contains: $term },
+            { description_contains: $term },
             { author_contains: $term }
             ]
           }
@@ -35,7 +35,7 @@ const SEARCH_POSTS_QUERY = gql`
 
       },
       first: $first,
-      skip: $skip, 
+      skip: $skip,
       orderBy: $orderBy) {
       id
       title

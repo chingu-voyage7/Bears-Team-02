@@ -16,7 +16,7 @@ Router.onRouteChangeError = () => {
 }
 
 const InnerHeader = props => (
-  <header className="header">
+  <header className="innerheader">
     <Link href="/">
       <a className="logo">
         <span className="logo__curly">&#123;</span>

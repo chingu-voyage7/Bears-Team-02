@@ -32,9 +32,11 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.25s;
+
   &:last-child {
     border-right: 0;
   }
+
   &:hover {
     background: darken(#f4e0ff, 5);
   }
@@ -45,7 +47,8 @@
   width: 300px;
   padding: 0.5rem;
   font-family: 'Akkurat Pro Mono';
-  & > * {
+
+  &>* {
     font-family: 'Akkurat Pro Mono';
   }
 }
@@ -59,7 +62,7 @@
 }
 
 .posts__message {
-  & > p > span {
+  &>p>span {
     font-size: 1.25rem;
     font-weight: bold;
     color: darkmagenta;
@@ -79,21 +82,25 @@
 .post {
   display: grid;
   justify-items: center;
+
   cursor: pointer;
   transition: all 0.5s;
+
   &:hover {
     box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
       0px 3px 3px -2px rgba(0, 0, 0, 0.12);
   }
+
   img {
     border: 1px solid $tertiary;
   }
 }
 
-.post__title {
+.posts__title {
   font-family: 'Akkurat Pro Bold';
   font-size: 1.75rem;
   text-align: center;
+
 }
 
 .post__info {
@@ -101,11 +108,13 @@
   border: 1px solid lightgrey;
   border-top: 0;
   font-family: 'Akkurat Pro Bold';
-  & > div {
+
+  &>div {
     display: grid;
     grid-template-columns: 1fr 2fr;
   }
-  & > div:nth-child(odd) {
+
+  &>div:nth-child(odd) {
     background: rgba(0, 0, 0, 0.09);
   }
 }
@@ -113,7 +122,7 @@
 .post__info__row {
   padding: 0.25rem;
 
-  & > span:first-child {
+  &>span:first-child {
     font-weight: bold;
     display: grid;
     align-items: center;
