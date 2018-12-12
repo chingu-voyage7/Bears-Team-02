@@ -209,11 +209,7 @@ class Posts extends React.Component {
     for (let i = 0; i < x; i += 1) {
       str += '🔥'
     }
-    return (
-      <span>
-        {str} <span>{x}/5</span>
-      </span>
-    )
+    return <span>{str}</span>
   }
 
   onPostClick = id => {
@@ -278,14 +274,29 @@ class Posts extends React.Component {
               <div className="posts__grid">
                 {this.state.posts.map((post, i) => (
                   <div className="post" key={post.id} onClick={() => this.onPostClick(post.id)}>
-                    <p className="post__title">{post.title.slice(0, 30)}</p>
-                    <img src={post.image} width="300" height="300" />
-                    <div>
-                      <p>{post.author}</p>
-                      <p>{post.difficulty}</p>
-                      <p>{post.price}</p>
-                      <p>{this.displayRating(averageRating(post.reviews))}</p>
-                      <p>{this.renderTags(post.tags)}</p>
+                    <img src={post.image} width="375" height="375" />
+                    <div className="post__info">
+                      <div className="post__info__row">
+                        <span>Title</span>
+                        <span>{post.title.slice(0, 30)}</span>
+                      </div>
+                      <div className="post__info__row">
+                        <span>Author</span>
+                        <span>{post.author}</span>
+                      </div>
+                      <div className="post__info__row">
+                        <span>Difficulty</span>
+                        <span>{post.difficulty}</span>
+                      </div>
+                      <div className="post__info__row">
+                        <span>Price</span>
+                        <span>{post.price}</span>
+                      </div>
+                      <div className="post__info__row">
+                        <span>Rating</span>
+                        <span>{this.displayRating(averageRating(post.reviews))}</span>
+                      </div>
+                      {/* <p>{this.renderTags(post.tags)}</p> */}
                     </div>
                   </div>
                 ))}

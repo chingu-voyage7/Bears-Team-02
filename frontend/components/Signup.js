@@ -78,6 +78,9 @@ class Signup extends Component {
             <button className="signup-button" type="submit">
               Sign Up!
             </button>
+            <a className="signup__google" href="http://localhost:7272/google">
+              Sign Up with Google
+            </a>
             <br />
             <DisplayError error={error} />
           </form>
