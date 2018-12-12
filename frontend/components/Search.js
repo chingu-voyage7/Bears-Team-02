@@ -5,6 +5,12 @@ class Search extends React.Component {
     search: '',
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.term !== this.props.term && !this.state.search) {
+      this.setState({ search: this.props.term })
+    }
+  }
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value })
     this.props.handleChange(e.target.value, this.props.client)

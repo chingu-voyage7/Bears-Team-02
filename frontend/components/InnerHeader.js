@@ -1,19 +1,6 @@
 import Link from 'next/link'
-import Router, { withRouter } from 'next/router'
-import NProgress from 'nprogress'
 import Nav from './Nav'
 import Search from './Search'
-
-Router.onRouteChangeStart = () => {
-  NProgress.start()
-}
-Router.onRouteChangeComplete = () => {
-  NProgress.done()
-}
-
-Router.onRouteChangeError = () => {
-  NProgress.done()
-}
 
 const InnerHeader = props => (
   <header className="header">
@@ -24,7 +11,7 @@ const InnerHeader = props => (
         <span className="logo__curly">&#125;</span>
       </a>
     </Link>
-    <Search client={props.client} handleChange={props.handleChange} />
+    <Search client={props.client} term={props.term} handleChange={props.handleChange} />
     <Nav />
   </header>
 )

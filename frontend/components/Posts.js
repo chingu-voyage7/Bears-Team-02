@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApolloConsumer } from 'react-apollo'
+import { ApolloConsumer, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
 import Router from 'next/router'
 import debounce from 'lodash.debounce'
@@ -7,8 +7,10 @@ import isEqual from 'lodash.isequal'
 import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
 
+// max number of posts returned per page
 const perPage = 30
 
+// the mongoloid
 const SEARCH_POSTS_QUERY = gql`
   query SEARCH_POSTS_QUERY(
     $term: String,
@@ -99,6 +101,17 @@ class Posts extends React.Component {
     orderBy: 0,
   }
 
+  // adds listener for internal route change
+  componentDidMount() {
+    Router.events.on('routeChangeStart', this.handleRouteChange)
+    this.restoreSearchParams()
+  }
+
+  // clean up for event listeners
+  componentWillUnmount() {
+    Router.events.off('routeChangeStart', this.handleRouteChange)
+  }
+
   // deep equal check on posts array
   // when posts change find the average rating and rebuild post w/Object.assign
   componentDidUpdate(prevProps, prevState) {
@@ -166,7 +179,6 @@ class Posts extends React.Component {
       query: SEARCH_POSTS_QUERY,
       variables: { term: this.state.term, difficulty: queryDifficulty, price: queryPrice },
     })
-
     this.setState({ loading: false, difficulty, posts: res.data.posts })
   }
 
@@ -194,6 +206,7 @@ class Posts extends React.Component {
     this.setState({ posts: sortedPosts, orderBy })
   }
 
+  // helper to render tag strings
   renderTags = tags =>
     tags.map((tag, i) => {
       if (i > 6) return null
@@ -204,7 +217,8 @@ class Posts extends React.Component {
       )
     })
 
-  displayRating = x => {
+  // turns numeric rating to fire emojis
+  renderRating = x => {
     let str = ''
     for (let i = 0; i < x; i += 1) {
       str += '🔥'
@@ -212,8 +226,46 @@ class Posts extends React.Component {
     return <span>{str}</span>
   }
 
+  // navigate to post detail route
   onPostClick = id => {
     Router.push({ pathname: '/post', query: { id } })
+  }
+
+  // stores search criteria in session storage
+  handleRouteChange = () => {
+    const { term, difficulty, price, orderBy } = this.state
+    const params = { term, difficulty, price, orderBy }
+    sessionStorage.setItem('parameters', JSON.stringify(params)) // eslint-disable-line
+  }
+
+  // restores posts using withApollo HOC and session storage
+  restoreSearchParams = async () => {
+    const params = JSON.parse(sessionStorage.getItem('parameters')) // eslint-disable-line
+    if (!params) return
+
+    const { term, difficulty, price, orderBy } = params
+    const queryPrice = getQueryValue(price, 1)
+    const queryDifficulty = getQueryValue(difficulty, 0)
+
+    const res = await this.props.client.query({
+      query: SEARCH_POSTS_QUERY,
+      variables: {
+        term,
+        difficulty: queryDifficulty,
+        price: queryPrice,
+      },
+    })
+
+    const fakeEvent = { target: { value: orderBy } }
+    this.handleOrderBy(fakeEvent)
+
+    this.setState({
+      term,
+      difficulty,
+      price,
+      posts: res.data.posts,
+      orderBy,
+    })
   }
 
   render() {
@@ -221,7 +273,7 @@ class Posts extends React.Component {
       <ApolloConsumer>
         {client => (
           <div className="posts__component">
-            <InnerHeader client={client} handleChange={this.handleChange} />
+            <InnerHeader client={client} term={this.state.term} handleChange={this.handleChange} />
 
             <div className="filter">
               <div className="filter__price">
@@ -271,6 +323,7 @@ class Posts extends React.Component {
                   </p>
                 )}
               </div>
+
               <div className="posts__grid">
                 {this.state.posts.map((post, i) => (
                   <div className="post" key={post.id} onClick={() => this.onPostClick(post.id)}>
@@ -294,9 +347,8 @@ class Posts extends React.Component {
                       </div>
                       <div className="post__info__row">
                         <span>Rating</span>
-                        <span>{this.displayRating(averageRating(post.reviews))}</span>
+                        <span>{this.renderRating(averageRating(post.reviews))}</span>
                       </div>
-                      {/* <p>{this.renderTags(post.tags)}</p> */}
                     </div>
                   </div>
                 ))}
@@ -309,4 +361,4 @@ class Posts extends React.Component {
   }
 }
 
-export default Posts
+export default withApollo(Posts)
