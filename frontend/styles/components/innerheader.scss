@@ -1,7 +1,6 @@
-.header {
+.innerheader {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 65%;
+  grid-template-columns: 1fr 65% 1fr;
   height: 70px;
   padding-left: 10px;
   padding-right: 10px;

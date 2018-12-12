@@ -32,9 +32,11 @@
   cursor: pointer;
   user-select: none;
   transition: all 0.25s;
+
   &:last-child {
     border-right: 0;
   }
+
   &:hover {
     background: darken(#f4e0ff, 5);
   }
@@ -45,7 +47,8 @@
   width: 300px;
   padding: 0.5rem;
   font-family: 'Akkurat Pro Mono';
-  & > * {
+
+  &>* {
     font-family: 'Akkurat Pro Mono';
   }
 }
@@ -59,7 +62,7 @@
 }
 
 .posts__message {
-  & > p > span {
+  &>p>span {
     font-size: 1.25rem;
     font-weight: bold;
     color: darkmagenta;
@@ -79,12 +82,13 @@
 .post {
   display: grid;
   justify-items: center;
+
   img {
     border: 1px solid $tertiary;
   }
 }
 
-.post__title {
+.posts__title {
   font-family: 'Akkurat Pro Bold';
   font-size: 2rem;
   text-align: center;
