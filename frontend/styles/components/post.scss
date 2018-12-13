@@ -15,10 +15,14 @@
 }
 
 .post__image {
-  height: 300px;
-  width: 300px;
   grid-column: 1;
+  margin-left: 4rem;
   border: 1px solid $tertiary;
+
+  img {
+    height: 300px;
+    width: 300px;
+  }
 }
 
 .post__detail {
