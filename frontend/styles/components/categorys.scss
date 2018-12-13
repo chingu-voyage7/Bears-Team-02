@@ -1,0 +1,32 @@
+.categorys-holder{
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    justify-content: center;
+    background-color: $tertiary;
+    height: 500px;
+}
+
+.categorys-button{
+    align-self: center;
+    justify-self: center;
+    background-image: linear-gradient(to right, $secondary 0%, $tertiary 51%, $background 100%);
+    background-size: 200% auto;
+    transition: 0.5s;
+    height: 10em;
+    width: 14em;
+    border-radius:5%;
+    box-shadow: 2px 5px $secondary;
+    outline: none;
+}
+.categorys-button:hover{
+    background-position: right center;
+}
+.categorys-button:active{
+        //-webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+           //-moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+                //box-shadow: inset 0px 0px 5px #c1c1c1;
+                box-shadow: none;
+         outline: none;
+}

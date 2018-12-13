@@ -1,7 +1,9 @@
 import Posts from '../components/Posts'
+import Categorys from '../components/Categorys'
 
 export default props => (
   <div>
-    <Posts />
+    <Categorys />
+    {/* post */}
   </div>
 )
