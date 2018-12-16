@@ -1,0 +1,21 @@
+.starRating__component {
+  margin: 2rem 0 0 2rem;
+}
+
+.review__form {
+  width: 300px;
+  display: grid;
+  grid-template-rows: auto auto;
+  border: 1px solid #d2d2d2;
+  padding: 1rem;
+}
+
+.dv-star-rating {
+  justify-self: start;
+  margin-bottom: 1rem;
+}
+
+textarea.review {
+  outline: none;
+  border: none;
+}

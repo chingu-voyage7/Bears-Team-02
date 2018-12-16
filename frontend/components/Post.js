@@ -1,6 +1,7 @@
 import React from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import Router from 'next/router'
 import DisplayError from './DisplayError'
 import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
@@ -43,6 +44,13 @@ class Post extends React.Component {
     )
   }
 
+  // navigate to review route
+  onReviewClick = (e, id) => {
+    e.preventDefault()
+    Router.push({ pathname: '/review', query: { id } })
+    console.log('id', id)
+  }
+
   renderTags = tags => tags.map(tag => <span key={tag}>{tag}</span>)
 
   render() {
@@ -52,6 +60,7 @@ class Post extends React.Component {
           if (loading) return <p>Loading...</p>
           if (error) return <DisplayError error={error} />
           const {
+            id,
             image,
             title,
             description,
@@ -67,6 +76,15 @@ class Post extends React.Component {
           return (
             <>
               <InnerHeader />
+              <div className="PostReview">
+                <button
+                  className="postReview__button"
+                  type="submit"
+                  onClick={e => this.onReviewClick(e, id)}
+                >
+                  ✏️ Write a Review
+                </button>
+              </div>
               <div className="post__component">
                 <a href={href} className="post__href" target="_blank">
                   <div className="post__image">
