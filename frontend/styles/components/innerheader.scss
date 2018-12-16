@@ -4,7 +4,7 @@
   height: 70px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: $tertiary;
+  background-color: $background;
 }
 
 .logo {
@@ -13,6 +13,7 @@
   font-family: 'Akkurat Pro Mono';
   font-size: 1.15rem;
   text-decoration: none;
+  color: $primary-text;
 }
 
 .logo__curly {

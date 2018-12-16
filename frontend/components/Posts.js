@@ -282,7 +282,10 @@ class Posts extends React.Component {
                     key={p}
                     className="filter__price__option"
                     onClick={() => this.handlePrice(p, client)}
-                    style={{ background: this.state.price.includes(p) && '#f4e0ff' }}
+                    style={{
+                      background: this.state.price.includes(p) && '#306AFD',
+                      color: this.state.price.includes(p) && 'white',
+                    }}
                   >
                     {formatPriceLabel(p)}
                   </span>
@@ -295,7 +298,10 @@ class Posts extends React.Component {
                     key={d}
                     className="filter__difficulty__option"
                     onClick={() => this.handleDifficulty(d, client)}
-                    style={{ background: this.state.difficulty.includes(d) && '#f4e0ff' }}
+                    style={{
+                      background: this.state.difficulty.includes(d) && '#306AFD',
+                      color: this.state.difficulty.includes(d) && 'white',
+                    }}
                   >
                     {d}
                   </span>
