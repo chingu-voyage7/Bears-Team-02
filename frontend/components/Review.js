@@ -1,7 +1,8 @@
 import React from 'react'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-// import StarRatingComponent from 'react-star-rating-component'
+import Router from 'next/router'
+import StarRatingComponent from 'react-star-rating-component'
 import DisplayError from './DisplayError'
 import InnerHeader from './InnerHeader'
 
@@ -13,27 +14,42 @@ const ITEM_QUERY = gql`
     }
   }
 `
-// const CREATE_REVIEW_MUTATION = gql`
-//   mutation CREATE_REVIEW_MUTATION(
-//     $id: ID!
-//     $rating: Int!
-//     $text: String
-//     $user: User!
-//     $post: Post!
-//   ) {
-//     createReview(id: $id, rating: $rating, text: $text, user: $user, post: $post) {
-//       id
-//       rating
-//       text
-//       user
-//       post
-//     }
-//   }
-// `
+const CREATE_REVIEW_MUTATION = gql`
+  mutation CREATE_REVIEW_MUTATION($data: ReviewCreateWithoutUserInput!) {
+    createReview(data: $data) {
+      id
+      rating
+      text
+    }
+  }
+`
 
 class Review extends React.Component {
   state = {
     text: '',
+    rating: 0,
+  }
+
+  onStarClick = (n, p, name) => {
+    this.setState({ [name]: n })
+  }
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value })
+
+  onSubmitClick = async (e, createReview) => {
+    e.preventDefault()
+
+    const res = await createReview({
+      variables: {
+        data: {
+          text: this.state.text,
+          rating: this.state.rating,
+          post: { connect: { id: this.props.id } },
+        },
+      },
+    })
+    // console.log('res.data', res.data)
+    Router.push({ pathname: '/post', query: { id: this.props.id } })
   }
 
   render() {
@@ -44,32 +60,45 @@ class Review extends React.Component {
           if (error) return <DisplayError error={error} />
           const { id, title } = data.post
           return (
-            // <Mutation mutataion={CREATE_REVIEW_MUTATION}>
             <>
               <InnerHeader />
               <div className="review__component">
-                {/* <div className="starRating__component">
-                  <h2>Rating from state: {this.props.rating}</h2>
-                  <StarRatingComponent
-                    name="rate1"
-                    starCount={5}
-                    value={rating}
-                    onStarClick={this.onStarClick.bind(this)}
-                  />
-                </div> */}
-                <h2 className="review__title">{data.post.title}</h2>
-                <form clasName="review__form">
-                  <textarea
-                    className="review"
-                    id="review"
-                    cols="30"
-                    rows="10"
-                    placeholder="Write your review"
-                  />
-                </form>
+                <div className="starRating__component">
+                  <h2 className="review__title">{data.post.title}</h2>
+                  <Mutation mutation={CREATE_REVIEW_MUTATION}>
+                    {createReview => (
+                      <form
+                        method="Post"
+                        className="review__form"
+                        onSubmit={e => this.onSubmitClick(e, createReview)}
+                      >
+                        <StarRatingComponent
+                          name="rating"
+                          starCount={5}
+                          value={this.state.rating}
+                          onStarClick={this.onStarClick}
+                          starColor="#FFE100"
+                          emptyStarColor="#D2D2D2"
+                          editing={true}
+                        />
+                        <textarea
+                          name="text"
+                          className="review"
+                          id="review"
+                          cols="30"
+                          rows="10"
+                          placeholder="Write your review"
+                          onChange={this.onChange}
+                        />
+                        <button className="submit__review" type="submit">
+                          Submit
+                        </button>
+                      </form>
+                    )}
+                  </Mutation>
+                </div>
               </div>
             </>
-            // </Mutation>
           )
         }}
       </Query>
