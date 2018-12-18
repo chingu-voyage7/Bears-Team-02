@@ -211,7 +211,7 @@ class Posts extends React.Component {
     tags.map((tag, i) => {
       if (i > 6) return null
       return (
-        <span className="post__tags__item" key={tag}>
+        <span className="post__info__tag" key={tag}>
           {tag.slice(0, 10)}
         </span>
       )
@@ -333,27 +333,41 @@ class Posts extends React.Component {
               <div className="posts__grid">
                 {this.state.posts.map((post, i) => (
                   <div className="post" key={post.id} onClick={() => this.onPostClick(post.id)}>
-                    <img src={post.image} width="375" height="375" />
+                    <img src={post.image} width="100" height="100" />
                     <div className="post__info">
-                      <div className="post__info__row">
-                        <span>Title</span>
-                        <span>{post.title.slice(0, 30)}</span>
+                      <p className="post__info__title">{post.title}</p>
+                      <p className="post__info__author">{post.author}</p>
+                      <div className="post__info__bottom">
+                        <div className="post__info__rating">
+                          {this.renderRating(averageRating(post.reviews))}
+                        </div>
+                        <div className="post__info__tags">{this.renderTags(post.tags)}</div>
                       </div>
-                      <div className="post__info__row">
-                        <span>Author</span>
-                        <span>{post.author}</span>
+                    </div>
+                    <div className="post__details">
+                      <div className="post__details__row">
+                        <span>Language</span>
+                        <span>
+                          <b>[</b> {post.language} <b>]</b>
+                        </span>
                       </div>
-                      <div className="post__info__row">
+                      <div className="post__details__row">
                         <span>Difficulty</span>
-                        <span>{post.difficulty}</span>
+                        <span>
+                          <b>[</b> {post.difficulty} <b>]</b>
+                        </span>
                       </div>
-                      <div className="post__info__row">
+                      <div className="post__details__row">
                         <span>Price</span>
-                        <span>{post.price}</span>
+                        <span>
+                          <b>[</b> {post.price} <b>]</b>
+                        </span>
                       </div>
-                      <div className="post__info__row">
-                        <span>Rating</span>
-                        <span>{this.renderRating(averageRating(post.reviews))}</span>
+                      <div className="post__details__row">
+                        <span>Content</span>
+                        <span>
+                          <b>[</b> {post.contentType} <b>]</b>
+                        </span>
                       </div>
                     </div>
                   </div>
