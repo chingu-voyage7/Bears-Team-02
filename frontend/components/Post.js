@@ -76,7 +76,7 @@ class Post extends React.Component {
           return (
             <>
               <InnerHeader />
-              <div className="PostReview">
+              <div className="postReview">
                 <button
                   className="postReview__button"
                   type="submit"
@@ -92,15 +92,15 @@ class Post extends React.Component {
                   </div>
                   <div className="post__detail">
                     <h2 className="post__title">{title}</h2>
-                    <p className="post__description">{description}</p>
-                    <p className="post__author">Author: {author}</p>
-                    <p>Language: {language}</p>
-                    <p>Content Type: {contentType}</p>
-                    <div className="post__tags">{this.renderTags(tags)}</div>
-
-                    <p>Difficulty: {difficulty}</p>
-                    <p>{this.displayRating(averageRating(reviews))}</p>
+                    <p className="post__rating">{this.displayRating(averageRating(reviews))}</p>
                     <p>{price}</p>
+                    <p>{difficulty} </p>
+                    <p className="post__author">{author}</p>
+                    <p className="desc">{description}</p>
+                    <p className="post__description">{description}</p>
+                    <p>Content Type: {contentType}</p>
+
+                    <div className="post__tags">{this.renderTags(tags)}</div>
                   </div>
                 </a>
               </div>

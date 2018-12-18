@@ -1,5 +1,5 @@
-import React from 'react'
 import { Query, Mutation } from 'react-apollo'
+import React from 'react'
 import gql from 'graphql-tag'
 import Router from 'next/router'
 import StarRatingComponent from 'react-star-rating-component'

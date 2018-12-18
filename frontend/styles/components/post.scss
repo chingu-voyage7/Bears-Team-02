@@ -1,5 +1,5 @@
-.PostReview {
-  background: $tertiary;
+.postReview {
+  background: $background;
 }
 
 .post__component {
@@ -7,21 +7,24 @@
   overflow: hidden;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: $tertiary;
+  background-color: $background;
   text-decoration: none;
+  color: $primary-text;
   // justify-items: center;
 }
 
 .post__href {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  column-gap: 10%;
+  column-gap: 2%;
+  font-size: .9rem;
+  color: $primary-text;
 }
 
 .post__image {
   grid-column: 1;
   margin-left: 4rem;
-  border: 1px solid $tertiary;
+  border: 1px solid $darkgrey;
 
   img {
     height: 300px;
@@ -38,7 +41,17 @@
   align-self: center;
   font-family: 'Akkurat Pro Bold';
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  color: $primary-text;
+}
+
+// .post__difficulty,
+// .post__language {
+//   margin-bottom: 2rem;
+// }
+
+.post__author {
+  margin-top: 2rem;
 }
 
 .post__tags {
@@ -47,6 +60,6 @@
   &>* {
     padding: .25rem;
     margin-right: .5rem;
-    background: lightpink;
+    background: $secondary;
   }
 }
