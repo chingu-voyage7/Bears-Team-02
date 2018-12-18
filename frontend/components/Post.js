@@ -2,6 +2,7 @@ import React from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Router from 'next/router'
+import StarRatingComponent from 'react-star-rating-component'
 import DisplayError from './DisplayError'
 import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
@@ -32,23 +33,23 @@ const ITEM_QUERY = gql`
 `
 
 class Post extends React.Component {
-  displayRating = x => {
-    let str = ''
-    for (let i = 0; i < x; i += 1) {
-      str += '🔥'
-    }
-    return (
-      <span>
-        {str} <span>{x}/5</span>
-      </span>
-    )
-  }
+  // displayRating = x => {
+  //   let str = ''
+  //   for (let i = 0; i < x; i += 1) {
+  //     str += '🔥'
+  //   }
+  //   return (
+  //     <span>
+  //       {str} <span>{x}/5</span>
+  //     </span>
+  //   )
+  // }
 
   // navigate to review route
   onReviewClick = (e, id) => {
     e.preventDefault()
     Router.push({ pathname: '/review', query: { id } })
-    console.log('id', id)
+    // console.log('id', id)
   }
 
   renderTags = tags => tags.map(tag => <span key={tag}>{tag}</span>)
@@ -92,11 +93,16 @@ class Post extends React.Component {
                   </div>
                   <div className="post__detail">
                     <h2 className="post__title">{title}</h2>
-                    <p className="post__rating">{this.displayRating(averageRating(reviews))}</p>
+                    <StarRatingComponent
+                      className="post__info__rating"
+                      name="rating"
+                      value={averageRating(reviews)}
+                      emptyStarColor="#eee"
+                    />
                     <p>{price}</p>
                     <p>{difficulty} </p>
                     <p className="post__author">{author}</p>
-                    <p className="desc">{description}</p>
+                    {/* <p className="desc">Description</p> */}
                     <p className="post__description">{description}</p>
                     <p>Content Type: {contentType}</p>
 

@@ -37,6 +37,7 @@
 }
 
 .post__title {
+  margin-top: .5rem;
   display: block;
   align-self: center;
   font-family: 'Akkurat Pro Bold';
@@ -52,6 +53,11 @@
 
 .post__author {
   margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.post__description {
+  margin-bottom: 1rem;
 }
 
 .post__tags {
