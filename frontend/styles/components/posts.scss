@@ -74,66 +74,86 @@
 
 .posts__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(400px, 1fr));
-  grid-gap: 50px;
-  justify-items: center;
-  align-items: center;
-  padding: 1rem 2rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fit, 100px);
+  grid-gap: 20px;
+  padding: 2rem 4rem;
 }
 
 .post {
   display: grid;
-  justify-items: center;
-
-  cursor: pointer;
-  margin-bottom: 100px;
-  transition: all 0.5s;
-
-  &:hover {
-    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14),
-      0px 3px 3px -2px rgba(0, 0, 0, 0.12);
-  }
-
-  img {
-    border: 1px solid $black;
-    background: white;
-  }
-}
-
-.posts__title {
-  font-family: 'Akkurat Pro Bold';
-  font-size: 1.75rem;
-  text-align: center;
-}
-
-.post__info {
-  width: 375px;
-  border: 1px solid $black;
-  border-top: 0;
-  font-family: 'Akkurat Pro Bold';
+  grid-template-columns: 100px 600px 200px;
+  grid-gap: 20px;
   color: $primary-text;
 
-  & > div {
-    height: 20px;
+  img {
+    background: white;
+    outline: 2px solid $black;
+    cursor: pointer;
+  }
+
+  .post__info {
+    align-self: start;
+    height: 100px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-rows: auto auto 1fr;
   }
 
-  & > div:nth-child(odd) {
-    background: rgba(255, 255, 255, 0.1);
+  .post__info__title {
+    align-self: flex-end;
+    font-size: 1.25rem;
   }
 
-  & > div:nth-child(even) {
-    background: rgba(0, 0, 0, 0.5);
+  .post__info__author {
+    font-size: 0.75rem;
   }
-}
 
-.post__info__row {
-  padding: 0.25rem;
-
-  & > span:first-child {
+  .post__info__bottom {
+    align-self: flex-end;
     display: grid;
+    grid-template-columns: 100px 1fr;
+  }
+
+  .post__info__tag {
+    font-size: 0.75rem;
+    padding: 0.25rem;
+    margin-right: 0.5rem;
+    background: darken($primary, 3);
+    outline: 1px solid $black;
+  }
+
+  .post__info__tags {
+    align-self: center;
+  }
+
+  .post__info__rating {
+    align-self: center;
+  }
+
+  .post__details {
+    align-self: center;
+    height: 85%;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    border: 2px solid $black;
+    padding: 0.5rem;
     align-items: center;
+    background: darken($primary, 3);
+    .post__details__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      font-size: 0.75rem;
+      padding: 0;
+      margin: 0;
+      b {
+        color: $tertiary;
+        &:first-child {
+          margin-right: 0.1rem;
+        }
+        &:last-child {
+          margin-left: 0.1rem;
+        }
+      }
+    }
   }
 }
