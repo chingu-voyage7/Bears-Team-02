@@ -1,6 +1,7 @@
 import React from 'react'
 import { ApolloConsumer, withApollo } from 'react-apollo'
 import gql from 'graphql-tag'
+import StarRatingComponent from 'react-star-rating-component'
 import Router from 'next/router'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
@@ -332,17 +333,27 @@ class Posts extends React.Component {
 
               <div className="posts__grid">
                 {this.state.posts.map((post, i) => (
-                  <div className="post" key={post.id} onClick={() => this.onPostClick(post.id)}>
-                    <img src={post.image} width="100" height="100" />
+                  <div className="post" key={post.id}>
+                    <img
+                      src={post.image}
+                      width="100"
+                      height="100"
+                      onClick={() => this.onPostClick(post.id)}
+                    />
                     <div className="post__info">
-                      <p className="post__info__title">{post.title}</p>
-                      <p className="post__info__author">{post.author}</p>
-                      <div className="post__info__bottom">
-                        <div className="post__info__rating">
-                          {this.renderRating(averageRating(post.reviews))}
-                        </div>
-                        <div className="post__info__tags">{this.renderTags(post.tags)}</div>
+                      <p className="post__info__title" onClick={() => this.onPostClick(post.id)}>
+                        {post.title}
+                      </p>
+                      <div className="post__info__middle">
+                        <StarRatingComponent
+                          className="post__info__rating"
+                          name="rating"
+                          value={averageRating(post.reviews)}
+                          emptyStarColor="#eee"
+                        />
+                        <p className="post__info__author">{post.author}</p>
                       </div>
+                      <div className="post__info__tags">{this.renderTags(post.tags)}</div>
                     </div>
                     <div className="post__details">
                       <div className="post__details__row">
