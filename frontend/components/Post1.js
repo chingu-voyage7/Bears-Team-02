@@ -78,13 +78,7 @@ class Post extends React.Component {
             <>
               <InnerHeader />
               <div className="post-wrapper">
-                <button
-                  className="review-button"
-                  type="submit"
-                  onClick={e => this.onReviewClick(e, id)}
-                >
-                  Write a Review
-                </button>
+                <button>Write a Review</button>
                 <div className="post-item">
                   <img src={image} className="post-image" />
                   <div className="post-info">
