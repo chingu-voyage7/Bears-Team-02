@@ -49,7 +49,7 @@
   padding: 0.5rem;
   font-family: 'Akkurat Pro Mono';
 
-  & > * {
+  &>* {
     font-family: 'Akkurat Pro Mono';
   }
 }
@@ -65,7 +65,8 @@
 
 .posts__message {
   color: $primary-text;
-  & > p > span {
+
+  &>p>span {
     font-size: 1.25rem;
     font-weight: bold;
     color: $link;
@@ -78,84 +79,88 @@
   grid-template-rows: repeat(auto-fit, 100px);
   grid-gap: 20px;
   padding: 2rem 4rem;
-}
 
-.post {
-  display: grid;
-  grid-template-columns: 100px 600px 200px;
-  grid-gap: 20px;
-  color: $primary-text;
-
-  img {
-    background: white;
-    outline: 2px solid $black;
-    cursor: pointer;
-  }
-
-  .post__info {
-    align-self: start;
-    height: 100px;
+  .post {
     display: grid;
-    grid-template-rows: auto auto 1fr;
-  }
+    grid-template-columns: 100px 600px 200px;
+    grid-gap: 20px;
+    color: $primary-text;
 
-  .post__info__title {
-    align-self: flex-end;
-    font-size: 1.25rem;
-    cursor: pointer;
-  }
+    img {
+      background: white;
+      outline: 2px solid $black;
+      cursor: pointer;
+    }
 
-  .post__info__author {
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-  }
-
-  .post__info__middle {
-    display: flex;
-    align-items: center;
-  }
-
-  .post__info__tag {
-    font-size: 0.75rem;
-    padding: 0.25rem;
-    margin-right: 0.5rem;
-    background: $black;
-    outline: 1px solid $black;
-  }
-
-  .post__info__tags {
-    align-self: flex-end;
-    margin-bottom: 0.2rem;
-  }
-
-  .dv-star-rating.post__info__rating {
-    align-self: end;
-    margin-bottom: 0;
-    margin-right: 1rem;
-  }
-
-  .post__details {
-    align-self: center;
-    height: 85%;
-    display: grid;
-    grid-template-rows: repeat(4, auto);
-    border: 2px solid $black;
-    padding: 0.5rem;
-    align-items: center;
-    background: darken($primary, 3);
-    .post__details__row {
+    .post__info {
+      align-self: start;
+      height: 100px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto 1fr;
+    }
+
+    .post__info__title {
+      align-self: flex-end;
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .post__info__author {
       font-size: 0.75rem;
-      padding: 0;
-      margin: 0;
-      b {
-        color: $tertiary;
-        &:first-child {
-          margin-right: 0.1rem;
-        }
-        &:last-child {
-          margin-left: 0.1rem;
+      margin-top: 0.25rem;
+    }
+
+    .post__info__middle {
+      display: flex;
+      align-items: center;
+    }
+
+    .post__info__tag {
+      font-size: 0.75rem;
+      padding: 0.25rem;
+      margin-right: 0.5rem;
+      background: $black;
+      outline: 1px solid $black;
+    }
+
+    .post__info__tags {
+      align-self: flex-end;
+      margin-bottom: 0.2rem;
+    }
+
+    .dv-star-rating.post__info__rating {
+      align-self: end;
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+
+    .post__details {
+      align-self: center;
+      height: 85%;
+      display: grid;
+      grid-template-rows: repeat(4, auto);
+      border: 2px solid $black;
+      padding: 0.5rem;
+      align-items: center;
+      background: darken($primary, 3);
+
+      .post__details__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: 0.75rem;
+        padding: 0;
+        margin: 0;
+
+        b {
+          color: $tertiary;
+
+          &:first-child {
+            margin-right: 0.1rem;
+          }
+
+          &:last-child {
+            margin-left: 0.1rem;
+          }
         }
       }
     }

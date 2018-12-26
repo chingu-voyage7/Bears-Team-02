@@ -77,38 +77,33 @@ class Post extends React.Component {
           return (
             <>
               <InnerHeader />
-              <div className="postReview">
-                <button
-                  className="postReview__button"
-                  type="submit"
-                  onClick={e => this.onReviewClick(e, id)}
-                >
-                  ✏️ Write a Review
-                </button>
-              </div>
-              <div className="post__component">
-                <a href={href} className="post__href" target="_blank">
-                  <div className="post__image">
-                    <img src={image} />
+              <div className="post-wrapper">
+                <button>Write a Review</button>
+                <div className="post-item">
+                  <img src={image} width="400" height="400" />
+                  <div className="post-info">
+                    <p>{title}</p>
+                    <div className="wrap">
+                      <StarRatingComponent
+                        className="post_info_rating"
+                        name="rating"
+                        value={averageRating(reviews)}
+                        emptyStarColor="#eee"
+                      />
+                      <p>{price} </p>
+                      <p>{difficulty}</p>
+                    </div>
+                    <div className="detail-wrap">
+                      <h2>Author</h2>
+                      <p>{author}</p>
+                      <h2>Description</h2>
+                      <p>{description}</p>
+                      <h2>Content Type</h2>
+                      <p>{contentType}</p>
+                    </div>
+                    <div className="post-tags">{this.renderTags(tags)}</div>
                   </div>
-                  <div className="post__detail">
-                    <h2 className="post__title">{title}</h2>
-                    <StarRatingComponent
-                      className="post__info__rating"
-                      name="rating"
-                      value={averageRating(reviews)}
-                      emptyStarColor="#eee"
-                    />
-                    <p>{price}</p>
-                    <p>{difficulty} </p>
-                    <p className="post__author">{author}</p>
-                    {/* <p className="desc">Description</p> */}
-                    <p className="post__description">{description}</p>
-                    <p>Content Type: {contentType}</p>
-
-                    <div className="post__tags">{this.renderTags(tags)}</div>
-                  </div>
-                </a>
+                </div>
               </div>
             </>
           )
