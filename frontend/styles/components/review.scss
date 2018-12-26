@@ -1,9 +1,20 @@
-.starRating__component {
-  margin: 2rem 0 0 2rem;
+.starRating-component {
+  height: 100% vh;
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: center;
+  background: $primary;
 }
 
-.review__form {
-  width: 300px;
+h2.review-title {
+  margin: 20px 0;
+
+  color: $primary-text;
+  font-size: 1.2rem;
+}
+
+.review-form {
+  width: 400px;
   display: grid;
   grid-template-rows: auto auto;
   border: 1px solid #d2d2d2;
@@ -18,4 +29,13 @@
 textarea.review {
   outline: none;
   border: none;
+}
+
+.submit-review-btn {
+  background: black;
+  color: gold;
+  border: 1px solid $black;
+  justify-self: flex-end;
+  margin-top: 10px;
+  padding: 10px;
 }

@@ -76,7 +76,11 @@ class Post extends React.Component {
           } = data.post
           return (
             <>
-              <InnerHeader />
+              <InnerHeader
+              // client={client}
+              // term={this.state.term}
+              // handleChange={this.handleChange}
+              />
               <div className="post-wrapper">
                 <button
                   className="review-button"

@@ -62,14 +62,14 @@ class Review extends React.Component {
           return (
             <>
               <InnerHeader />
-              <div className="review__component">
-                <div className="starRating__component">
-                  <h2 className="review__title">{data.post.title}</h2>
+              <div className="review-component">
+                <div className="starRating-component">
+                  <h2 className="review-title">{data.post.title}</h2>
                   <Mutation mutation={CREATE_REVIEW_MUTATION}>
                     {createReview => (
                       <form
                         method="Post"
-                        className="review__form"
+                        className="review-form"
                         onSubmit={e => this.onSubmitClick(e, createReview)}
                       >
                         <StarRatingComponent
@@ -90,7 +90,7 @@ class Review extends React.Component {
                           placeholder="Write your review"
                           onChange={this.onChange}
                         />
-                        <button className="submit__review" type="submit">
+                        <button className="submit-review-btn" type="submit">
                           Submit
                         </button>
                       </form>
