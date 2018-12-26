@@ -9,12 +9,14 @@
     color: gold;
     border: 1px solid $black;
     justify-self: flex-start;
-    margin-left: 277px;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
 .post-item {
-  height: 80vh;
+  height: 90vh;
   display: grid;
   grid-template-columns: 400px 1fr;
 
@@ -24,7 +26,7 @@
     font-family: 'Akkurat Pro Bold';
     text-decoration: none;
     font-size: 1.5rem;
-    padding-left: 10px;
+    padding-left: 20px;
 
   }
 
