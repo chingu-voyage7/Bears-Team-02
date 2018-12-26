@@ -80,7 +80,7 @@ class Post extends React.Component {
               <div className="post-wrapper">
                 <button>Write a Review</button>
                 <div className="post-item">
-                  <img src={image} width="400" height="400" />
+                  <img src={image} className="post-image" />
                   <div className="post-info">
                     <p>{title}</p>
                     <div className="wrap">

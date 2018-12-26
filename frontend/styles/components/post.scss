@@ -8,8 +8,8 @@
     background: black;
     color: gold;
     border: 1px solid $black;
-    justify-self: flex-start;
-    margin-left: 40px;
+    justify-self: flex-end;
+    margin-right: 50px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
@@ -20,6 +20,16 @@
   display: grid;
   grid-template-columns: 400px 1fr;
 
+  .post-image {
+    background: white;
+    outline: 2px solid $black;
+    cursor: pointer;
+    width: 380px;
+    height: 380px;
+    margin-left: 20px;
+    padding: auto;
+  }
+
   .post-info {
     color: $primary-text;
     align-self: auto;
@@ -27,7 +37,6 @@
     text-decoration: none;
     font-size: 1.5rem;
     padding-left: 20px;
-
   }
 
   .wrap {
@@ -36,6 +45,8 @@
     width: 300px;
     font-size: 1.2rem;
     padding-top: 10px;
+    margin-bottom: 50px;
+
     // align-items: center;
   }
 
@@ -59,7 +70,8 @@
     &>* {
       padding: .25rem;
       margin-right: .5rem;
-      background: $tertiary;
+      background: $black;
+      outline: 1px solid $black;
     }
   }
 }
