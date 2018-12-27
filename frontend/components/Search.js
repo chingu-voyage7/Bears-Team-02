@@ -21,6 +21,12 @@ class Search extends React.Component {
     this.props.handleClick(search, this.props.client)
   }
 
+  handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      this.handleClick()
+    }
+  }
+
   render() {
     return (
       <div className="search">
@@ -28,6 +34,7 @@ class Search extends React.Component {
           className="search__bar"
           type="search"
           value={this.state.search}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           placeholder="Find resources"
           name="search"

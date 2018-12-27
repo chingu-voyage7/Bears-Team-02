@@ -1,7 +1,8 @@
 import Post from '../components/Post'
+import Wrapper from '../components/Wrapper'
 
 export default props => (
-  <div>
+  <Wrapper>
     <Post id={props.query.id} />
-  </div>
+  </Wrapper>
 )

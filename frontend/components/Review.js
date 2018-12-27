@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 import Router from 'next/router'
 import StarRatingComponent from 'react-star-rating-component'
 import DisplayError from './DisplayError'
-import InnerHeader from './InnerHeader'
 
 const ITEM_QUERY = gql`
   query ITEM_QUERY($id: ID!) {
@@ -61,7 +60,6 @@ class Review extends React.Component {
           const { id, title } = data.post
           return (
             <>
-              <InnerHeader />
               <div className="review-component">
                 <div className="starRating-component">
                   <h2 className="review-title">{data.post.title}</h2>

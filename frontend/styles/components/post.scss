@@ -31,6 +31,10 @@
   }
 
   .post-info {
+    height: 380px;
+    width: 900px;
+
+    display: grid;
     color: $primary-text;
     align-self: auto;
     font-family: 'Akkurat Pro Bold';
@@ -65,6 +69,7 @@
 
   .post-tags {
     display: flex;
+    align-self: flex-end;
     font-size: 1rem;
 
     &>* {

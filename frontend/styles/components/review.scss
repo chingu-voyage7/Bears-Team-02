@@ -1,10 +1,10 @@
-.starRating-component {
-  height: 100% vh;
+.review-component {
+  height: calc(100vh - 70px);
   display: grid;
-  grid-template-rows: auto;
+  grid-template-rows: 1fr;
   justify-content: center;
+  align-items: center;
   background: $primary;
-  padding-bottom: 300px;
 }
 
 h2.review-title {

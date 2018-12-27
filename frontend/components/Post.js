@@ -4,8 +4,8 @@ import gql from 'graphql-tag'
 import Router from 'next/router'
 import StarRatingComponent from 'react-star-rating-component'
 import DisplayError from './DisplayError'
-import InnerHeader from './InnerHeader'
 import averageRating from '../lib/averageRating'
+import formatPrice from '../lib/formatPrice'
 
 const ITEM_QUERY = gql`
   query ITEM_QUERY($id: ID!) {
@@ -76,11 +76,6 @@ class Post extends React.Component {
           } = data.post
           return (
             <>
-              <InnerHeader
-              // client={client}
-              // term={this.state.term}
-              // handleChange={this.handleChange}
-              />
               <div className="post-wrapper">
                 <button
                   className="review-button"
@@ -100,7 +95,8 @@ class Post extends React.Component {
                         value={averageRating(reviews)}
                         emptyStarColor="#eee"
                       />
-                      <p>{price} </p>
+
+                      <p>{formatPrice(price)}</p>
                       <p>{difficulty}</p>
                     </div>
                     <div className="detail-wrap">
