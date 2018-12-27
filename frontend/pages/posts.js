@@ -1,7 +1,8 @@
+import Wrapper from '../components/Wrapper'
 import Posts from '../components/Posts'
 
 export default props => (
-  <div>
+  <Wrapper>
     <Posts />
-  </div>
+  </Wrapper>
 )
