@@ -16,6 +16,11 @@ class Search extends React.Component {
     this.props.handleChange(e.target.value, this.props.client)
   }
 
+  handleClick = () => {
+    const { search } = this.state
+    this.props.handleClick(search, this.props.client)
+  }
+
   render() {
     return (
       <div className="search">
@@ -28,7 +33,7 @@ class Search extends React.Component {
           name="search"
           autoFocus
         />
-        <button className="search__button" type="submit">
+        <button className="search__button" onClick={this.handleClick}>
           🔍
         </button>
       </div>

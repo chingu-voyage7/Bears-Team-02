@@ -11,7 +11,12 @@ const InnerHeader = props => (
         <span className="logo__curly">&#125;</span>
       </a>
     </Link>
-    <Search client={props.client} term={props.term} handleChange={props.handleChange} />
+    <Search
+      client={props.client}
+      term={props.term}
+      handleChange={props.handleChange}
+      handleClick={props.handleClick}
+    />
     <Nav />
   </header>
 )
