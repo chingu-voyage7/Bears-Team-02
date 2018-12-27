@@ -8,8 +8,8 @@
     background: black;
     color: gold;
     border: 1px solid $black;
-    justify-self: flex-end;
-    margin-right: 50px;
+    justify-self: flex-start;
+    margin-left: 10%;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -80,81 +80,3 @@
     }
   }
 }
-
-// .post__component {
-//   background: $background;
-//   height: 100vh;
-//   overflow: hidden;
-//   padding-left: 10px;
-//   padding-right: 10px;
-//   background-color: $background;
-//   text-decoration: none;
-//   color: $primary-text;
-//   display: grid;
-//   // minmax(100px, auto) minmax(60%, auto);
-//   // grid-template-columns: 1fr 2fr;
-//   grid-template-rows:
-//     30px auto;
-//   justify-items: center;
-//   align-items: center;
-// }
-
-// .post_review {
-//   grid-column: 1;
-//   grid-row: 1;
-//   column-gap: 2px;
-//   color: #000;
-//   font-size: .9rem;
-//   margin-left: 4rem;
-// }
-
-// .post_detail {
-//   display: grid;
-//   grid-template-columns: 1fr 2fr;
-//   margin-left: 4rem;
-//   border: 1px solid $darkgrey;
-// }
-
-// .post_img {
-//   grid-column: 1;
-//   grid-row: 2;
-
-//   img {
-//     height: 300px;
-//     width: 300px;
-//   }
-// }
-
-// .post_href {
-//   grid-column: 2;
-//   grid-row: 2;
-
-//   .post_title {
-//     margin-top: .5rem;
-//     // display: block;
-//     align-self: center;
-//     font-family: 'Akkurat Pro Bold';
-//     text-decoration: none;
-//     font-size: 1.5rem;
-//     color: $primary-text;
-//   }
-// }
-
-// .post__author {
-//   margin-top: 2rem;
-//   margin-bottom: 1rem;
-// }
-
-// .post__description {
-//   margin-bottom: 1rem;
-// }
-
-// .post__tags {
-//   display: flex;
-
-//   &>* {
-//     padding: .25rem;
-//     margin-right: .5rem;
-//     background: $primary;
-//   }
-// }
