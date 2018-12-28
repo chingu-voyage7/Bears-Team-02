@@ -1,0 +1,13 @@
+.categorys-holder {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  justify-content: center;
+  background-color: $primary;
+  height: 500px;
+}
+
+.categorys-button {
+  @include categorys-button;
+}
