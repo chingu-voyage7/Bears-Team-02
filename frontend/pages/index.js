@@ -1,5 +1,7 @@
+import Home from '../components/Home'
+
 export default () => (
-  <div>
-    <h2>Hello Bears-02 👋🏼 </h2>
+  <div className="home-wrapper">
+    <Home />
   </div>
 )

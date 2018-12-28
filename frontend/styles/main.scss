@@ -10,6 +10,7 @@
 @import '//base/animations';
 
 // 🧩 components
+@import './components/categories';
 @import './components/header';
 @import './components/innerheader';
 @import './components/search';
@@ -24,3 +25,4 @@
 // 📄 pages
 @import './pages/signin';
 @import './pages/signup';
+@import './pages/home';
