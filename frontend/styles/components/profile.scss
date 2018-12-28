@@ -1,4 +1,4 @@
-.signup-component {
+.profile-component {
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -8,12 +8,12 @@
   color: $primary-text;
 }
 
-h2.signup-title {
+h2.profile-title {
   margin: 20px 0;
-  font-size: 1.2rem;
+  font-size: 1.2em;
 }
 
-.signup-form {
+.profile-form {
   width: 400px;
   display: grid;
   grid-template-rows: auto;
@@ -22,34 +22,24 @@ h2.signup-title {
   padding: 1em;
 }
 
-
-.signup-form>label {
+.profile-form>label {
   grid-column: labels controls;
   grid-row: auto;
 }
 
-.signup-form>input {
+.profile-form>input {
   grid-column: controls;
   grid-row: auto;
   border: none;
   padding: .5em;
 }
 
-.signup-form button {
-  grid-column: 2 / 3;
-  text-align: center;
-  text-decoration: none;
+.profile-form>button {
+  grid-column: controls;
   background: black;
   color: gold;
-  border: 1px solid white;
-  padding: 0.5rem 1rem;
-}
-
-.signup__google {
-  grid-column: 2 / 3;
-  text-align: center;
-  text-decoration: none;
-  color: black;
-  padding: 0.5rem 1rem;
-  background: gold;
+  border: 1px solid $black;
+  justify-self: flex-end;
+  margin-top: 10px;
+  padding: 10px;
 }
