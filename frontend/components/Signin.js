@@ -35,36 +35,38 @@ class Signin extends Component {
       <Mutation mutation={SIGNIN_MUTATION}>
         {(signin, { data, loading, error }) => (
           <div className="signin-component">
-            <h2 className="signin-title">Sign into your account</h2>
-            <form
-              className="signin-form"
-              action="POST"
-              onSubmit={e => this.handleSubmit(e, signin)}
-            >
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                value={this.state.email}
-                onChange={this.saveToState}
-              />
+            <div className="Container">
+              <h2 className="signin-title">Sign into your account</h2>
+              <form
+                className="signin-form"
+                action="POST"
+                onSubmit={e => this.handleSubmit(e, signin)}
+              >
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={this.state.email}
+                  onChange={this.saveToState}
+                />
 
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                value={this.state.password}
-                onChange={this.saveToState}
-              />
-              <button type="submit">Sign In</button>
-              <a className="signup__google" href="http://localhost:7272/google">
-                Sign In with Google
-              </a>
-              <br />
-              {data && <div>{JSON.stringify(data)}</div>}
-            </form>
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  value={this.state.password}
+                  onChange={this.saveToState}
+                />
+                <button type="submit">Sign In</button>
+                <a className="signup__google" href="http://localhost:7272/google">
+                  Sign In with Google
+                </a>
+                <br />
+                {data && <div>{JSON.stringify(data)}</div>}
+              </form>
+            </div>
           </div>
         )}
       </Mutation>
