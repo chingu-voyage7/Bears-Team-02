@@ -26,15 +26,15 @@ h2.signin-title {
     padding: 1em;
 }
 
-.signin-form button {
-    grid-column: 2 / 3;
-}
-
 .signin-form>input {
     grid-column: labels controls;
     grid-row: auto;
     border: none;
     padding: .5em;
+}
+
+.signin-form button {
+    grid-column: 2 / 3;
 }
 
 .signin-form button {
