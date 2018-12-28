@@ -1,4 +1,5 @@
 import React from 'react'
+import MoreCategorys from './MoreCategorys'
 
 class Categorys extends React.Component {
   state = {
@@ -6,7 +7,6 @@ class Categorys extends React.Component {
   }
 
   handleClick = () => {
-    console.log('test')
     this.setState({ open: !this.state.open })
   }
 
@@ -147,7 +147,7 @@ class Categorys extends React.Component {
             Other
           </button>
         </div>
-        <div>{this.state.open ? 'Hello' : ''}</div>
+        <MoreCategorys open={this.state.open} />
       </>
     )
   }
