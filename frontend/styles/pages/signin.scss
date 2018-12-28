@@ -1,15 +1,48 @@
-.signin-form{
+.signin-component {
+    height: 100vh;
     display: grid;
-    grid-template-columns: 200px 1fr;
-    grid-gap: 16px;
-    max-width: 400px;
-    padding: 1em;
+    grid-template-rows: auto 1fr;
+    justify-content: center;
+    align-items: center;
+    background: $primary;
+    color: $primary-text;
 }
+
 .signin-form label {
     grid-column: 1 / 2;
 }
- 
-.signin-form input,
+
+h2.signin-title {
+    margin: 20px 0;
+    font-size: 1.2rem;
+}
+
+.signin-form {
+    width: 400px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: .5em;
+    border: 1px solid #d2d2d2;
+    padding: 1em;
+}
+
 .signin-form button {
     grid-column: 2 / 3;
+}
+
+.signin-form>input {
+    grid-column: labels controls;
+    grid-row: auto;
+    border: none;
+    padding: .5em;
+}
+
+.signin-form button {
+    grid-column: 2 / 3;
+    text-align: center;
+    text-decoration: none;
+    background: black;
+    color: gold;
+    border: 1px solid white;
+    padding: 0.5rem 1rem;
 }

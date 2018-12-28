@@ -2,7 +2,12 @@
 
 type Query {
   me: User
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, first: Int): [Post]!
+  posts(
+    where: PostWhereInput
+    orderBy: PostOrderByInput
+    skip: Int
+    first: Int
+  ): [Post]!
   postsCount(where: PostWhereInput): Count
   post(id: ID!): Post
 }
