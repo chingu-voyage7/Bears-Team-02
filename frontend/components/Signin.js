@@ -26,6 +26,8 @@ class Signin extends Component {
   handleSubmit = async (e, signin) => {
     e.preventDefault()
     await signin({ variables: { ...this.state } })
+    console.log('email', this.state.email)
+    console.log('password', this.state.password)
     this.setState({ email: '', password: '' })
     Router.push('/')
   }

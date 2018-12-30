@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
+import Categories from './Categories'
 
 class Home extends React.Component {
   onPostClick = id => {
@@ -17,6 +18,7 @@ class Home extends React.Component {
         <button className="home-button" onClick={() => this.onPostClick()}>
           Start Search
         </button>
+        <Categories />
       </div>
     )
   }

@@ -111,6 +111,11 @@ class Post extends React.Component {
                   </div>
                 </div>
               </div>
+              <div className="display-reviews">
+                <h2>Reviews</h2>
+                console.log('post', post)
+                {/* <p>{post.map(review, i)}</p> */}
+              </div>
             </>
           )
         }}

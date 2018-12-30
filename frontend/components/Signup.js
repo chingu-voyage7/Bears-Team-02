@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import Router from 'next/router'
 import DisplayError from './DisplayError'
 
 const SIGNUP_MUTATION = gql`
@@ -31,6 +32,7 @@ class Signup extends Component {
     this.setState({ name: '', email: '', password: '' })
     // refetch user query
     // route to wherever we want!
+    Router.push('/signin')
   }
 
   render() {
@@ -45,18 +47,6 @@ class Signup extends Component {
                 method="POST"
                 onSubmit={e => this.handleSubmit(e, signup)}
               >
-                <label className="signup-email-label" htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className="signup-email-input"
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  value={this.state.email}
-                  onChange={this.saveToState}
-                />
-
                 <label className="signup-name-label" htmlFor="name">
                   Name
                 </label>
@@ -69,6 +59,17 @@ class Signup extends Component {
                   onChange={this.saveToState}
                 />
 
+                <label className="signup-email-label" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className="signup-email-input"
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  value={this.state.email}
+                  onChange={this.saveToState}
+                />
                 <label className="signup-password-label" htmlFor="password">
                   Password
                 </label>
