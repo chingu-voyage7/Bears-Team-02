@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
+import LandingSearch from './LandingSearch'
 
 class Home extends React.Component {
   onPostClick = id => {
@@ -8,6 +9,7 @@ class Home extends React.Component {
 
   render() {
     return (
+      <>
       <div className="home">
         <div className="home-title">
           <span className="logo_curly">&#123;</span>
@@ -18,6 +20,8 @@ class Home extends React.Component {
           Start Search
         </button>
       </div>
+      <LandingSearch />
+      </>
     )
   }
 }
