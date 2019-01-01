@@ -82,7 +82,7 @@ class InnerWrapper extends React.Component {
     term: '',
     price: [],
     difficulty: [],
-    orderBy: 0,
+    orderBy: 0
   }
 
   // adds listener for internal route change
@@ -103,7 +103,8 @@ class InnerWrapper extends React.Component {
     if (!isEqual(prevState.posts, this.state.posts)) {
       const avgs = this.state.posts.map(post => averageRating(post.reviews))
       const postsWithAvg = this.state.posts.map((post, i) =>
-        Object.assign({}, post, { averageRating: avgs[i] }))
+        Object.assign({}, post, { averageRating: avgs[i] })
+      )
       this.setState({ posts: postsWithAvg })
     }
     if (Router.pathname !== this.state.pathname) {
@@ -125,7 +126,7 @@ class InnerWrapper extends React.Component {
     // query the prisma client directly
     const res = await client.query({
       query: SEARCH_POSTS_QUERY,
-      variables: { term, difficulty },
+      variables: { term, difficulty }
     })
     return this.setState({ loading: false, posts: res.data.posts })
   }, 500)
@@ -152,7 +153,7 @@ class InnerWrapper extends React.Component {
 
     const res = await client.query({
       query: SEARCH_POSTS_QUERY,
-      variables: { term: this.state.term, price: queryPrice, difficulty: queryDifficulty },
+      variables: { term: this.state.term, price: queryPrice, difficulty: queryDifficulty }
     })
 
     this.setState({ loading: false, price, posts: res.data.posts })
@@ -175,7 +176,7 @@ class InnerWrapper extends React.Component {
     // query prisma with both search term and difficulty
     const res = await client.query({
       query: SEARCH_POSTS_QUERY,
-      variables: { term: this.state.term, difficulty: queryDifficulty, price: queryPrice },
+      variables: { term: this.state.term, difficulty: queryDifficulty, price: queryPrice }
     })
     this.setState({ loading: false, difficulty, posts: res.data.posts })
   }
@@ -225,8 +226,8 @@ class InnerWrapper extends React.Component {
       variables: {
         term,
         difficulty: queryDifficulty,
-        price: queryPrice,
-      },
+        price: queryPrice
+      }
     })
 
     const fakeEvent = { target: { value: orderBy } }
@@ -237,13 +238,13 @@ class InnerWrapper extends React.Component {
       difficulty,
       price,
       posts: res.data.posts,
-      orderBy,
+      orderBy
     })
   }
 
   render() {
     const {
-      state: { pathname, loading, posts, term, price, difficulty, orderBy },
+      state: { pathname, loading, posts, term, price, difficulty, orderBy }
     } = this
     return (
       <ApolloConsumer>
@@ -270,8 +271,9 @@ class InnerWrapper extends React.Component {
               React.cloneElement(child, {
                 loading,
                 posts,
-                term,
-              }))}
+                term
+              })
+            )}
           </div>
         )}
       </ApolloConsumer>

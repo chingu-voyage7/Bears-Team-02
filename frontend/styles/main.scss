@@ -10,7 +10,7 @@
 @import '//base/animations';
 
 // 🧩 components
-@import './components/categories';
+//@import './components/categories';
 @import './components/header';
 @import './components/innerheader';
 @import './components/search';
@@ -20,7 +20,7 @@
 @import './components/profile';
 @import './components/footer';
 @import './components/review';
-
+@import './components/landingsearch';
 
 // 📄 pages
 @import './pages/signin';

@@ -18,7 +18,7 @@ const SIGNIN_MUTATION = gql`
 class Signin extends Component {
   state = {
     email: '',
-    password: '',
+    password: ''
   }
 
   saveToState = e => this.setState({ [e.target.name]: e.target.value })

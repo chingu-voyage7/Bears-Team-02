@@ -16,7 +16,7 @@ Router.onRouteChangeError = () => {
 }
 
 const Header = props =>
-  (props.router.pathname === '/' ? (
+  props.router.pathname === '/' ? (
     <header className="header">
       <Link href="/">
         <a className="logo">
@@ -27,5 +27,5 @@ const Header = props =>
       </Link>
       <Nav />
     </header>
-  ) : null)
+  ) : null
 export default withRouter(Header)

@@ -21,7 +21,7 @@ class Signup extends Component {
   state = {
     name: '',
     password: '',
-    email: '',
+    email: ''
   }
 
   saveToState = e => this.setState({ [e.target.name]: e.target.value })

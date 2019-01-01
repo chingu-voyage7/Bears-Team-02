@@ -1,0 +1,40 @@
+.landing-search-container{
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 125px;
+
+}
+.landing-search-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45%;
+}
+.landing-dropdown{
+align-self: flex-start;
+border: none;
+border-right: 1px solid lightgrey;
+height: 40px;
+border-radius: 5px 0px 0px 5px;
+outline: none;
+}
+.landing-search-input{
+border: none;
+flex-grow: 1;
+height: 38px;
+font-size: 25px;
+outline: none;
+}
+.landing-submit-button{
+border: none;
+background-color: black;
+color: gold;
+align-self: flex-end;
+height: 40px;
+width: 50px;
+border-radius: 0px 5px 5px 0px;
+border: 1px solid $black;
+outline: none;
+}

@@ -72,7 +72,7 @@ class Post extends React.Component {
             tags,
             difficulty,
             reviews,
-            price,
+            price
           } = data.post
           return (
             <>

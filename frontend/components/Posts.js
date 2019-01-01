@@ -21,7 +21,7 @@ export default class Posts extends React.Component {
 
   render() {
     const {
-      props: { loading, posts, term },
+      props: { loading, posts, term }
     } = this
 
     return (
