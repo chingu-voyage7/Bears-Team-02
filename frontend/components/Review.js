@@ -26,7 +26,7 @@ const CREATE_REVIEW_MUTATION = gql`
 class Review extends React.Component {
   state = {
     text: '',
-    rating: 0,
+    rating: 0
   }
 
   onStarClick = (n, p, name) => {
@@ -43,9 +43,9 @@ class Review extends React.Component {
         data: {
           text: this.state.text,
           rating: this.state.rating,
-          post: { connect: { id: this.props.id } },
-        },
-      },
+          post: { connect: { id: this.props.id } }
+        }
+      }
     })
     // console.log('res.data', res.data)
     Router.push({ pathname: '/post', query: { id: this.props.id } })

@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import Router from 'next/router'
 import debounce from 'lodash.debounce'
 import isEqual from 'lodash.isequal'
-import InnerHeader from './InnerHeader'
+import Header from './Header'
 import averageRating from '../lib/averageRating'
 import { PRICE, DIFFICULTY } from '../lib/filterConstants'
 import Filters from './Filters'
@@ -73,7 +73,7 @@ function getQueryValue(arr, i) {
   return arr
 }
 
-class Wrapper extends React.Component {
+class InnerWrapper extends React.Component {
   state = {
     pathname: null,
     loading: false,
@@ -250,7 +250,7 @@ class Wrapper extends React.Component {
       <ApolloConsumer>
         {client => (
           <div className="posts__component">
-            <InnerHeader
+            <Header
               client={client}
               term={term}
               handleChange={this.handleChange}
@@ -281,4 +281,4 @@ class Wrapper extends React.Component {
   }
 }
 
-export default withApollo(Wrapper)
+export default withApollo(InnerWrapper)

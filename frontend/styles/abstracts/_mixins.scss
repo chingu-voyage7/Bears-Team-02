@@ -1,0 +1,27 @@
+@mixin categorys-button {
+  align-self: center;
+  justify-self: center;
+  background-image: linear-gradient(to right, $primary 0%, $tertiary 51%, $background 100%);
+  background-size: 200% auto;
+  transition: 0.5s;
+  height: 10em;
+  width: 14em;
+  border-radius: 5%;
+  box-shadow: 2px 5px $primary;
+  outline: none;
+
+  &:hover {
+    background-position: right center;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    box-shadow: none;
+    outline: none;
+  }
+
+  svg {
+    max-height: 50%;
+    max-width: 50%;
+  }
+}

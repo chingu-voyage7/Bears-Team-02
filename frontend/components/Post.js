@@ -72,7 +72,7 @@ class Post extends React.Component {
             tags,
             difficulty,
             reviews,
-            price,
+            price
           } = data.post
           return (
             <>
@@ -110,6 +110,11 @@ class Post extends React.Component {
                     <div className="post-tags">{this.renderTags(tags)}</div>
                   </div>
                 </div>
+              </div>
+              <div className="display-reviews">
+                <h2>Reviews</h2>
+                console.log('post', post)
+                {/* <p>{post.map(review, i)}</p> */}
               </div>
             </>
           )

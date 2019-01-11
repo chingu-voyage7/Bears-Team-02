@@ -8,7 +8,7 @@ export default ({
   orderBy,
   handlePrice,
   handleDifficulty,
-  handleOrderBy,
+  handleOrderBy
 }) => (
   <div className="filter">
     <div className="filter__price">
@@ -19,7 +19,7 @@ export default ({
           onClick={() => handlePrice(p, client)}
           style={{
             background: price.includes(p) && '#306AFD',
-            color: price.includes(p) && 'white',
+            color: price.includes(p) && 'white'
           }}
         >
           {formatPrice(p)}
@@ -35,7 +35,7 @@ export default ({
           onClick={() => handleDifficulty(d, client)}
           style={{
             background: difficulty.includes(d) && '#306AFD',
-            color: difficulty.includes(d) && 'white',
+            color: difficulty.includes(d) && 'white'
           }}
         >
           {d}
