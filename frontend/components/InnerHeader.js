@@ -17,7 +17,7 @@ const InnerHeader = props => (
       handleChange={props.handleChange}
       handleClick={props.handleClick}
     />
-    <Nav />
+    {/* <Nav /> */}
   </header>
 )
 

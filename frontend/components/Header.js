@@ -25,7 +25,7 @@ const Header = props =>
           <span className="logo__curly">&#125;</span>
         </a>
       </Link>
-      <Nav />
+      {/* <Nav /> */}
     </header>
   ) : null)
 export default withRouter(Header)
