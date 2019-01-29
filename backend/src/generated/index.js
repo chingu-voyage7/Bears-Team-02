@@ -44,37 +44,3 @@ exports.Prisma = prisma_lib_1.makePrismaClientClass({
   secret: `${process.env["PRISMA_SERVICE_SECRET"]}`
 });
 exports.prisma = new exports.Prisma();
-var models = [
-  {
-    name: "ContentType",
-    embedded: false
-  },
-  {
-    name: "Difficulty",
-    embedded: false
-  },
-  {
-    name: "Language",
-    embedded: false
-  },
-  {
-    name: "Post",
-    embedded: false
-  },
-  {
-    name: "PriceRange",
-    embedded: false
-  },
-  {
-    name: "Review",
-    embedded: false
-  },
-  {
-    name: "Role",
-    embedded: false
-  },
-  {
-    name: "User",
-    embedded: false
-  }
-];
