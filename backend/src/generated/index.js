@@ -40,7 +40,7 @@ var models = [
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
   typeDefs,
   models,
-  endpoint: `${process.env["PRISMA_ENDPOINT"]}`,
+  endpoint: `https://the-source-heroku-0999be8946.herokuapp.com/the-source-prod/prod`,
   secret: `${process.env["PRISMA_SERVICE_SECRET"]}`
 });
 exports.prisma = new exports.Prisma();

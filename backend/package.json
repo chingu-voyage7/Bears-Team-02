@@ -10,7 +10,8 @@
     "deploy": "prisma deploy -e .env",
     "dev": "nodemon -e js,graphql -x node --inspect src/index.js",
     "devskip": "nodemon -e js,graphql -x",
-    "start": "nodemon -e js,graphql -x node src/index.js"
+    "start": "nodemon -e js,graphql -x node src/index.js",
+    "heroku-postbuild": "npm install && npm build"
   },
   "keywords": [],
   "author": "chingu-7-bears-2",
